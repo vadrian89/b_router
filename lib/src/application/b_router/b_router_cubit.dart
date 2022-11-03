@@ -28,6 +28,9 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// Paramater values are identified using [BRoute.parameterId] value.
   ///
   /// [arguments] can be retrieved when at the page's build time.
+  ///
+  /// If a route with the same name already exists, it will be removed and this route
+  /// will be added to the stack.
   void push({required String name, Map<String, dynamic>? arguments}) {
     final nameSegments = name.split("/");
     BRoute? route = BRoute.fromName(nameSegments.first.replaceAll("/", ""), _allRoutes);
@@ -38,7 +41,10 @@ class BRouterCubit extends Cubit<BRouterState> {
       emit(const BRouterState.unknown());
       return;
     }
-    _pushedRoutes = List.from([..._pushedRoutes, route.addArguments(arguments)]);
+    _pushedRoutes = List.from([
+      ..._pushedRoutes.where((element) => element.name != route?.name),
+      route.addArguments(arguments),
+    ]);
     _showFound();
   }
 
