@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
@@ -39,7 +37,7 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// If a route with the same name already exists, it will be removed and this route
   /// will be added to the stack.
   void push({required String name, Map<String, dynamic>? arguments}) {
-    _logger.d("Pushing new route for name: $name and arguments: ${jsonEncode(arguments)}");
+    _logger.d("Pushing new route for name: $name and arguments: $arguments");
     final nameSegments = name.split("/");
     BRoute? route = BRoute.fromName(nameSegments.first.replaceAll("/", ""), _allRoutes);
     if (route != null && nameSegments.length == 2) {
