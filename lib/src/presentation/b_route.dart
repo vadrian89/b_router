@@ -22,12 +22,6 @@ class BRoute extends Equatable {
   /// The page which will be used to populate the navigation stack.
   final Widget Function(BuildContext context, Map<String, dynamic>? arguments) pageBuilder;
 
-  /// Redirect to returned path.
-  ///
-  /// Great to implement redirect logic for protected pages, such as when the user is authenticated
-  /// or other internal logic.
-  final String? Function(BuildContext context)? redirect;
-
   /// List of sub routes for this route.
   ///
   /// Useful for have pages which depend on this one.
@@ -46,7 +40,6 @@ class BRoute extends Equatable {
     required this.name,
     this.arguments,
     required this.pageBuilder,
-    this.redirect,
     this.routes,
   });
 
@@ -115,6 +108,5 @@ class BRoute extends Equatable {
         name: name ?? this.name,
         arguments: arguments ?? this.arguments,
         pageBuilder: pageBuilder ?? this.pageBuilder,
-        redirect: redirect ?? this.redirect,
       );
 }

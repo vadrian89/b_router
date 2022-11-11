@@ -10,5 +10,4 @@ export 'src/presentation/not_found_screen.dart';
 export 'src/presentation/extensions.dart';
 
 export 'src/presentation/bloc/b_router_provider.dart';
-export 'src/presentation/bloc/b_router_navigator_consumer.dart';
 export 'src/presentation/bloc/pop_result_listener.dart';

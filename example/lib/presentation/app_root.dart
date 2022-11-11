@@ -62,7 +62,6 @@ class AppRoot extends StatelessWidget {
           routes: [
             BRoute(
               name: ":urlParameter",
-              redirect: (context) => "login",
               pageBuilder: (context, arguments) => SecondLevelScreen(
                 text: "The value of urlParameter is: ${arguments!["urlParameter"]}",
                 onButtonPressed: (context) {

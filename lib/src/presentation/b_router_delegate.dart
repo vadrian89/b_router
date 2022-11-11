@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../application/b_router/b_router_cubit.dart';
-import 'b_route.dart';
-import 'bloc/b_router_navigator_consumer.dart';
 import 'not_found_screen.dart';
 
 /// The root delegate of the app.
@@ -51,36 +49,23 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   BRouterState get currentConfiguration => _bloc.state;
 
   @override
-  Widget build(BuildContext context) => BRouterNavigatorConsumer(
-        notifyListeners: notifyListeners,
-        builder: (context, state) => Navigator(
-          key: _navigatorKey,
-          pages: _pagesFromState(state),
-          onPopPage: _onPopPageParser,
-        ),
+  Widget build(BuildContext context) => Navigator(
+        key: _navigatorKey,
+        pages: _pagesFromState(),
+        onPopPage: _onPopPageParser,
       );
 
-  List<Page> _pagesFromState(BRouterState state) => state.maybeWhen(
+  List<Page> _pagesFromState() => currentConfiguration.maybeWhen(
         orElse: () => [],
         routesFound: (routes) => List.generate(
           routes.length,
           (index) => _materialPage(
             valueKey: "${routes[index].name}_page",
             child: Builder(
-              builder: (context) {
-                final route = routes[index];
-                if (route.redirect != null) {
-                  final location = route.redirect!(context);
-                  if (location?.isNotEmpty ?? false) {
-                    BRoute? newRoute = BRoute.fromName(location!, _bloc.routes);
-                    newRoute ??= BRoute.fromName(BRouterState.notFoundPath, _bloc.routes);
-                    newRoute ??= BRoute.rootRoute(_bloc.routes);
-                    _bloc.redirect(location: newRoute!.name);
-                    return newRoute.pageBuilder(context, null);
-                  }
-                }
-                return route.pageBuilder(context, routes[index].arguments);
-              },
+              builder: (context) => routes[index].pageBuilder(
+                context,
+                routes[index].arguments,
+              ),
             ),
           ),
         ),
