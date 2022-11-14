@@ -19,7 +19,7 @@ class SecondScreen extends StatelessWidget {
                   name: "third-screen",
                   arguments: {"arg": "An invisible argument"},
                 ),
-                child: const Text("Presse me"),
+                child: const Text("Press me"),
               ),
             ],
           ),

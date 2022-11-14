@@ -17,7 +17,7 @@ class FourthScreen extends StatelessWidget {
               Builder(
                 builder: (context) => ElevatedButton(
                   onPressed: () => context.bPush(name: "lala"),
-                  child: const Text("Presse me"),
+                  child: const Text("Press me"),
                 ),
               ),
               const SizedBox(height: 10),

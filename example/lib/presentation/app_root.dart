@@ -1,10 +1,10 @@
 import 'package:example/presentation/fourth_screen.dart';
 import 'package:example/presentation/main_screen.dart';
 import 'package:example/presentation/second_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
 
+import 'redirected_screen.dart';
 import 'third_screen.dart';
 
 class AppRoot extends StatefulWidget {
@@ -63,13 +63,7 @@ class _AppRootState extends State<AppRoot> {
   List<BRoute> get _routes => [
         BRoute(
           path: "/",
-          pageBuilder: (context, _, __) => MainScreen(
-            onPressed: (_) => context.read<BRouterCubit>().push(
-              name: "page2",
-              arguments: {"page-2-arg": "Screen pushed with argument!!"},
-              params: {"something": "45"},
-            ),
-          ),
+          pageBuilder: (context, _, __) => const MainScreen(),
         ),
         BRoute(
           path: "page2",
@@ -86,6 +80,12 @@ class _AppRootState extends State<AppRoot> {
         BRoute(
           path: "third-screen/:id",
           pageBuilder: (context, arguments, uri) => FourthScreen(
+            text: arguments?["id"] ?? "no argument was provided",
+          ),
+        ),
+        BRoute(
+          path: "redirected-screen/:id",
+          pageBuilder: (context, arguments, uri) => RedirectedScreen(
             text: arguments?["id"] ?? "no argument was provided",
           ),
         ),

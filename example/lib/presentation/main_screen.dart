@@ -1,3 +1,4 @@
+import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -8,16 +9,26 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
+            direction: Axis.vertical,
+            spacing: 10,
+            runSpacing: 10,
             children: [
-              const Text("First level screen"),
-              const SizedBox(height: 20),
-              Builder(
-                builder: (context) => ElevatedButton(
-                  onPressed: (onPressed != null) ? () => onPressed!(context) : null,
-                  child: const Text("Push me"),
+              Text(
+                "First level screen",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              ElevatedButton(
+                onPressed: () => context.bPush(
+                  name: "page2",
+                  arguments: {"page-2-arg": "Screen pushed with argument!!"},
+                  params: {"something": "45"},
                 ),
+                child: const Text("Push me"),
+              ),
+              ElevatedButton(
+                onPressed: () => context.bRedirect(location: "redirected-screen/5546"),
+                child: const Text("Redirect to 'redirected-screen/5546'"),
               ),
             ],
           ),

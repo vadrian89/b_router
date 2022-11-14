@@ -108,7 +108,7 @@ class BRouterCubit extends Cubit<BRouterState> {
           return false;
         }
         _pushedRoutes = List.generate(_pushedRoutes.length - 1, (index) => _pushedRoutes[index]);
-        if (routes.length > 2) {
+        if (routes.length > 1) {
           _showFound();
           return true;
         }

@@ -38,21 +38,36 @@ class BRouterState with _$BRouterState {
 
   /// Factory constructor used to get the correct state from an [Uri].
   ///
-  /// This constructor is used inside [BRouterParser.parseRouteInformation].
+  /// This constructor is used inside [BRouterParser.parseRouteInformation] and used for redirect
+  /// in [BRouterCubit.redirect].
   factory BRouterState.fromUri({required Uri uri, required List<BRoute> routes}) {
     List<BRoute> routesList = const [];
-    final rootRoute = BRoute.rootRoute(routes)?.addParameters(params: uri.queryParameters);
+    final rootRoute = BRoute.rootRoute(routes);
     if (rootRoute == null) {
       return const BRouterState.unknown();
     }
     routesList = List.from([rootRoute]);
-    for (final pathSegment in uri.pathSegments) {
-      BRoute? route = BRoute.fromPath(pathSegment, routes);
-      route ??= BRoute.fromPath("${routesList.last.path}/$pathSegment", routes);
-      if (route == null) {
-        return const BRouterState.unknown();
+    final pathSegments = uri.pathSegments;
+    for (int i = 0; i < pathSegments.length; i++) {
+      final segment = pathSegments[i];
+      BRoute? route = BRoute.fromPath(segment, routes);
+      if (route == null && pathSegments.length < 2) {
+        const BRouterState.unknown();
       }
-      routesList = List.from([...routesList, route]);
+      if (i > 0) {
+        route ??= BRoute.fromPath("${pathSegments[i - 1]}/$segment", routes);
+      }
+      if (route != null) {
+        routesList = List.from([...routesList, route]);
+      }
+    }
+    if (routesList.length > 1) {
+      routesList = List.generate(
+        routesList.length,
+        (index) => (index == 1)
+            ? routesList[index].addParameters(params: uri.queryParameters)
+            : routesList[index],
+      );
     }
     return BRouterState.routesFound(routes: routesList);
   }
@@ -102,15 +117,19 @@ class BRouterState with _$BRouterState {
 
   String _locationFromRoutes(List<BRoute> list) {
     String query = "";
-    String path = "";
-    List<BRoute> tmpList = const [];
+    List<String> pathSegments = const [];
     for (final route in list) {
       query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
       if (route.path != rootPath) {
-        path += "/${route.name.replaceFirst(BRoute.parameterStart, "")}";
+        final path = (pathSegments.isNotEmpty && (pathSegments.last == route.pathSegments.first))
+            ? route.name
+            : route.path;
+        pathSegments = List.from([
+          ...pathSegments,
+          path.replaceFirst(BRoute.parameterStart, ""),
+        ]);
       }
-      tmpList = List.from([...tmpList, route]);
     }
-    return "$path${query.isNotEmpty ? "?" : ""}$query";
+    return "${pathSegments.join("/")}${query.isNotEmpty ? "?" : ""}$query";
   }
 }

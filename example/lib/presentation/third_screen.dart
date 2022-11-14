@@ -15,7 +15,7 @@ class ThirdScreen extends StatelessWidget {
               Text(text),
               ElevatedButton(
                 onPressed: () => context.bPush(name: "third-screen/the-provided-id"),
-                child: const Text("Presse me"),
+                child: const Text("Press me"),
               ),
             ],
           ),
