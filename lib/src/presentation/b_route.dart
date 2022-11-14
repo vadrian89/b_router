@@ -91,8 +91,8 @@ class BRoute extends Equatable {
   /// First we check if ```path == value```.
   ///
   /// If the above doesn't pass it will check if [pathContainsParameter] returns true and if it
-  /// does, it will verify that both ```pathSegments.first == valueSegments.first``` and
-  /// ```valueSegments.startsWith(BRoute.parameterStart)```.
+  /// does, it will verify that both ```valueSegments.length == 2``` and
+  /// ```valueSegments.first == pathSegments.first```.
   ///
   /// ```final valueSegments = value.split("/")```
   bool containsPath(String value) {

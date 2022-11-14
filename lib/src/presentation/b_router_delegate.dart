@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:b_router/src/presentation/bloc/b_router_listener.dart';
 import 'package:flutter/material.dart';
 
 import '../application/b_router/b_router_cubit.dart';
@@ -49,10 +50,13 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   BRouterState get currentConfiguration => _bloc.state;
 
   @override
-  Widget build(BuildContext context) => Navigator(
-        key: _navigatorKey,
-        pages: _pagesFromState,
-        onPopPage: _onPopPageParser,
+  Widget build(BuildContext context) => BRouterListener(
+        listener: (_, __) => notifyListeners(),
+        child: Navigator(
+          key: _navigatorKey,
+          pages: _pagesFromState,
+          onPopPage: _onPopPageParser,
+        ),
       );
 
   List<Page> get _pagesFromState => currentConfiguration.maybeWhen(

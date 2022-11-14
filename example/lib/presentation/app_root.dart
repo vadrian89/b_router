@@ -7,14 +7,27 @@ import 'package:flutter/material.dart';
 
 import 'third_screen.dart';
 
-class AppRoot extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+class AppRoot extends StatefulWidget {
+  const AppRoot({Key? key}) : super(key: key);
 
-  AppRoot({Key? key}) : super(key: key);
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
+
+class _AppRootState extends State<AppRoot> {
+  late final BRouterCubit _bloc;
+  late final GlobalKey<NavigatorState> _navigatorKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = BRouterCubit(routes: _routes);
+    _navigatorKey = GlobalKey<NavigatorState>();
+  }
 
   @override
   Widget build(BuildContext context) => BRouterProvider(
-        routes: _routes,
+        bloc: _bloc,
         child: Builder(
           builder: (context) => MaterialApp.router(
             theme: ThemeData.from(
@@ -23,8 +36,8 @@ class AppRoot extends StatelessWidget {
               ).copyWith(secondary: Colors.yellow),
             ),
             routerDelegate: BRouterDelegate(
-              navigatorKey: navigatorKey,
-              bloc: context.watch<BRouterCubit>(),
+              navigatorKey: _navigatorKey,
+              bloc: _bloc,
               stayOpened: (context) => showDialog<bool?>(
                 context: context,
                 builder: (context) => AlertDialog(
