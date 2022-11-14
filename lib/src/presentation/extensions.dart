@@ -18,13 +18,24 @@ extension BRouterContextExtensions on BuildContext {
   /// Redirect to the new [location].
   ///
   /// For more see [BRouterCubit.redirect].
-  void bRedirect({required String location}) => bRouter.redirect(location: location);
+  void bRedirect({required String location, Map<String, String>? params}) => bRouter.redirect(
+        location: location,
+        params: params,
+      );
 
   /// Push a new page to the stack.
   ///
   /// For more see [BRouterCubit.push];
-  void bPush({required String name, Map<String, dynamic>? arguments}) =>
-      bRouter.push(name: name, arguments: arguments);
+  void bPush({
+    required String name,
+    Map<String, dynamic>? arguments,
+    Map<String, String>? params,
+  }) =>
+      bRouter.push(
+        name: name,
+        arguments: arguments,
+        params: params,
+      );
 
   /// Get the last route pushed.
   BRoute? get bTopRoute => bRouter.state.whenOrNull(routesFound: (routes) => routes.last);

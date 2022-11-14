@@ -41,20 +41,14 @@ class BRouterState with _$BRouterState {
   /// This constructor is used inside [BRouterParser.parseRouteInformation].
   factory BRouterState.fromUri({required Uri uri, required List<BRoute> routes}) {
     List<BRoute> routesList = const [];
-    final rootRoute = BRoute.rootRoute(routes);
+    final rootRoute = BRoute.rootRoute(routes)?.addParameters(params: uri.queryParameters);
     if (rootRoute == null) {
       return const BRouterState.unknown();
     }
-    routesList = List.from([rootRoute, ...routesList]);
+    routesList = List.from([rootRoute]);
     for (final pathSegment in uri.pathSegments) {
-      BRoute? route = BRoute.fromName(pathSegment, routes);
-
-      /// If the initial [route] returned no found route, we check to see if it matches a route
-      /// with name containg a parameter, such as ```/products/:43```.
-      route ??= BRoute.fromName(routesList.last.name, routes)?.findRoute(
-        name: "${BRoute.parameterId}$pathSegment",
-      );
-
+      BRoute? route = BRoute.fromPath(pathSegment, routes);
+      route ??= BRoute.fromPath("${routesList.last.path}/$pathSegment", routes);
       if (route == null) {
         return const BRouterState.unknown();
       }
@@ -65,22 +59,58 @@ class BRouterState with _$BRouterState {
 
   /// Get the location of the current navigation stack.
   ///
-  /// Example: /page1/page2/p=some-paramter
+  /// Example: ```/page1/page2/?p=some-parameter```
   String get location => maybeWhen(
         initial: () => rootPath,
         routesFound: (routes) {
-          String path = _locationFromRoutes(routes);
-          if (path.isEmpty) {
-            path = rootPath;
-          }
-          return path;
+          final path = _locationFromRoutes(routes);
+          return path.isNotEmpty ? path : rootPath;
         },
         orElse: () => notFoundPath,
       );
 
-  String _locationFromRoutes(List<BRoute> list) =>
-      list.where((element) => element.name != rootPath).fold(
-            "",
-            (previousValue, element) => "$previousValue/${element.name}",
-          );
+  Uri get uri => maybeWhen(
+        initial: () => Uri.parse(rootPath),
+        orElse: () => Uri.parse(notFoundPath),
+        routesFound: (routes) => Uri(
+          pathSegments: _pathSegments(routes),
+          queryParameters: _params(routes),
+        ),
+      );
+
+  Map<String, String>? _params(List<BRoute> list) {
+    Map<String, String> params = Map<String, String>.fromEntries(
+      list.expand((element) => element.params.entries),
+    );
+    return params.isNotEmpty ? params : null;
+  }
+
+  List<String> _pathSegments(List<BRoute> list) {
+    List<String> tmpList = const [];
+    for (final route in list) {
+      if (route.path != rootPath) {
+        tmpList = List.from([
+          ...tmpList,
+          (route.pathContainsParameter)
+              ? route.name.replaceFirst(BRoute.parameterStart, "")
+              : route.name,
+        ]);
+      }
+    }
+    return tmpList;
+  }
+
+  String _locationFromRoutes(List<BRoute> list) {
+    String query = "";
+    String path = "";
+    List<BRoute> tmpList = const [];
+    for (final route in list) {
+      query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
+      if (route.path != rootPath) {
+        path += "/${route.name.replaceFirst(BRoute.parameterStart, "")}";
+      }
+      tmpList = List.from([...tmpList, route]);
+    }
+    return "$path${query.isNotEmpty ? "?" : ""}$query";
+  }
 }

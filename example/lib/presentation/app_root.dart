@@ -1,8 +1,11 @@
+import 'package:example/presentation/fourth_screen.dart';
 import 'package:example/presentation/main_screen.dart';
-import 'package:example/presentation/second_level_screen.dart';
+import 'package:example/presentation/second_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
+
+import 'third_screen.dart';
 
 class AppRoot extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -46,45 +49,32 @@ class AppRoot extends StatelessWidget {
 
   List<BRoute> get _routes => [
         BRoute(
-          name: "/",
-          pageBuilder: (context, __) => MainScreen(
-            onPressed: (_) => context.read<BRouterCubit>().push(name: "page2", arguments: {
-              "page-2-arg": "Screen pushed with argument!!",
-            }),
-          ),
-        ),
-        BRoute(
-          name: "page2",
-          pageBuilder: (BuildContext context, arguments) => SecondLevelScreen(
-            text: arguments?["page-2-arg"] ?? "no argument was provided",
-            onButtonPressed: (_) => context.read<BRouterCubit>().push(name: "page2/:idOfSomething"),
-          ),
-          routes: [
-            BRoute(
-              name: ":urlParameter",
-              pageBuilder: (context, arguments) => SecondLevelScreen(
-                text: "The value of urlParameter is: ${arguments!["urlParameter"]}",
-                onButtonPressed: (context) {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      content: const Text("This is a material dialog"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.maybePop(context, "dialog result"),
-                          child: const Text("Pop with return value"),
-                        ),
-                      ],
-                    ),
-                  ).then((value) => print("returned value $value"));
-                },
-              ),
+          path: "/",
+          pageBuilder: (context, _, __) => MainScreen(
+            onPressed: (_) => context.read<BRouterCubit>().push(
+              name: "page2",
+              arguments: {"page-2-arg": "Screen pushed with argument!!"},
+              params: {"something": "45"},
             ),
-          ],
+          ),
         ),
         BRoute(
-          name: "login",
-          pageBuilder: (context, __) => const Center(child: Text("Replaced screen")),
+          path: "page2",
+          pageBuilder: (context, arguments, uri) => SecondScreen(
+            text: uri.queryParameters["something"] ?? "no argument was provided",
+          ),
+        ),
+        BRoute(
+          path: "third-screen",
+          pageBuilder: (context, arguments, uri) => ThirdScreen(
+            text: arguments?["arg"] ?? "no argument was provided",
+          ),
+        ),
+        BRoute(
+          path: "third-screen/:id",
+          pageBuilder: (context, arguments, uri) => FourthScreen(
+            text: arguments?["id"] ?? "no argument was provided",
+          ),
         ),
       ];
 }

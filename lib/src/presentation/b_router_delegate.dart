@@ -51,11 +51,11 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   @override
   Widget build(BuildContext context) => Navigator(
         key: _navigatorKey,
-        pages: _pagesFromState(),
+        pages: _pagesFromState,
         onPopPage: _onPopPageParser,
       );
 
-  List<Page> _pagesFromState() => currentConfiguration.maybeWhen(
+  List<Page> get _pagesFromState => currentConfiguration.maybeWhen(
         orElse: () => [],
         routesFound: (routes) => List.generate(
           routes.length,
@@ -65,6 +65,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
               builder: (context) => routes[index].pageBuilder(
                 context,
                 routes[index].arguments,
+                currentConfiguration.uri,
               ),
             ),
           ),

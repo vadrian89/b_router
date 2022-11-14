@@ -1,14 +1,10 @@
+import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
 
-class SecondLevelScreen extends StatelessWidget {
+class FourthScreen extends StatelessWidget {
   final String text;
-  final void Function(BuildContext context)? onButtonPressed;
 
-  const SecondLevelScreen({
-    Key? key,
-    required this.text,
-    this.onButtonPressed,
-  }) : super(key: key);
+  const FourthScreen({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -20,7 +16,7 @@ class SecondLevelScreen extends StatelessWidget {
               Text(text),
               Builder(
                 builder: (context) => ElevatedButton(
-                  onPressed: (onButtonPressed != null) ? () => onButtonPressed!(context) : null,
+                  onPressed: () => context.bPush(name: "lala"),
                   child: const Text("Presse me"),
                 ),
               ),

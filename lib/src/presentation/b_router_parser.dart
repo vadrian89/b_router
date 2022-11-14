@@ -27,6 +27,7 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   ///
   /// It's required to properly update the browser's history.
   @override
-  RouteInformation restoreRouteInformation(BRouterState configuration) =>
-      RouteInformation(location: configuration.location);
+  RouteInformation restoreRouteInformation(BRouterState configuration) => RouteInformation(
+        location: configuration.location,
+      );
 }

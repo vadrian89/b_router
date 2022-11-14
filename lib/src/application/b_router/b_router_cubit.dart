@@ -20,9 +20,7 @@ class BRouterCubit extends Cubit<BRouterState> {
   BRouterCubit({required List<BRoute> routes})
       : _logger = Logger(),
         _allRoutes = List.from(routes),
-        super(const BRouterState.initial()) {
-    _logger.d("Initialising BRouterCubit");
-  }
+        super(const BRouterState.initial());
 
   /// Push a new page to the navigation stack.
   ///
@@ -30,30 +28,50 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// [name] must be either simple, such as `login` or with parameter, such as `products/:id`
   /// (id is just a placeholder it can be anything, it can be either `:id, :name, :etc,`).
   ///
-  /// Paramater values are identified using [BRoute.parameterId] value.
+  /// Paramater values are identified using [BRoute.parameterStart] value.
   ///
   /// [arguments] can be retrieved when at the page's build time.
   ///
   /// If a route with the same name already exists, it will be removed and this route
   /// will be added to the stack.
-  void push({required String name, Map<String, dynamic>? arguments}) {
-    _logger.d("Pushing new route for name: $name and arguments: $arguments");
+  void push({
+    required String name,
+    Map<String, dynamic>? arguments,
+    Map<String, String>? params,
+  }) {
+    _logger.d("Pushing new route");
+    _logger.d("New route name: $name");
+    _logger.d("New route arguments: $arguments");
+    _logger.d("New route params: $params");
     final nameSegments = name.split("/");
-    BRoute? route = BRoute.fromName(nameSegments.first.replaceAll("/", ""), _allRoutes);
-    if (route != null && nameSegments.length == 2) {
-      _logger.d("Searching for sub-route: ${nameSegments.last}");
-      route = route.findRoute(name: nameSegments.last);
-    }
-    if (route == null) {
-      _logger.w("Couldn't find any route!");
+    if (nameSegments.length > 2) {
+      _logger.e("$name contains more than 2 segments: $nameSegments");
       emit(const BRouterState.unknown());
       return;
     }
+
+    final route = BRoute.fromPath(name, _allRoutes)?.addParameters(
+      arguments: arguments,
+      params: params,
+    );
+
+    if (route == null) {
+      _logger.e("Couldn't find any route!");
+      emit(const BRouterState.unknown());
+      return;
+    }
+
+    List<BRoute> tmpList = List.from(_pushedRoutes);
+
+    /// If the top route is the same as the new route we replace it.
+    /// We also make sure we don't try to replace the root route.
+    if (tmpList.length >= 2 && tmpList.last.path == name) {
+      tmpList = tmpList.getRange(0, tmpList.length - 2).toList();
+    }
+    tmpList = List.from([...tmpList, route]);
+
     _logger.d("Old pushed routes list: $_pushedRoutes");
-    _pushedRoutes = List.from([
-      ..._pushedRoutes.where((element) => element.name != route?.name),
-      route.addArguments(arguments),
-    ]);
+    _pushedRoutes = List.from(tmpList);
     _logger.d("New pushed routes list: $_pushedRoutes");
     _showFound();
   }
@@ -62,9 +80,14 @@ class BRouterCubit extends Cubit<BRouterState> {
   ///
   /// This should be used when you need to redirect to a specific page.
   /// Becareful, as this method will replace the current navigation stack all together.
-  void redirect({required String location}) {
-    _logger.d("Redirecting to $location");
-    setNewRoutePath(BRouterState.fromUri(uri: Uri.parse(location), routes: _allRoutes));
+  void redirect({required String location, Map<String, String>? params}) {
+    _logger.d("Redirecting to $location with params: $params");
+    setNewRoutePath(
+      BRouterState.fromUri(
+        uri: Uri.parse(location).replace(queryParameters: params),
+        routes: _allRoutes,
+      ),
+    );
   }
 
   /// Implement the logic for what happens when the back button was called.
@@ -130,7 +153,6 @@ class BRouterCubit extends Cubit<BRouterState> {
 
   @override
   Future<void> close() {
-    _logger.d("Closing BRouterCubit.");
     _logger.close();
     return super.close();
   }
