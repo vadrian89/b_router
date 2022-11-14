@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Route class which is used for route configuration.
 class BRoute extends Equatable {
   /// Used to identify parameter values, such as: `:id`, `:a-value`, etc.
-  static String parameterStart = ":";
+  static const String parameterStart = ":";
 
   /// The path of this route.
   ///
