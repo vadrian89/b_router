@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:b_router/src/presentation/bloc/b_router_listener.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../application/b_router/b_router_cubit.dart';
@@ -30,10 +31,13 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// By default it will use [NotFoundScreen].
   final Widget Function(BuildContext context)? errorBuilder;
 
-  NavigatorState? get _navigatorState => _navigatorKey.currentState;
+  NavigatorState? get _navigatorState => navigatorKey!.currentState;
 
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
+
+  @override
+  BRouterState get currentConfiguration => _bloc.state;
 
   BRouterDelegate({
     required GlobalKey<NavigatorState> navigatorKey,
@@ -43,17 +47,11 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   })  : _navigatorKey = navigatorKey,
         _bloc = bloc;
 
-  /// Called by the [Router] when it detects a route information may have changed as a result of rebuild.
-  ///
-  /// This is required for browser history navigation.
-  @override
-  BRouterState get currentConfiguration => _bloc.state;
-
   @override
   Widget build(BuildContext context) => BRouterListener(
         listener: (_, __) => notifyListeners(),
         child: Navigator(
-          key: _navigatorKey,
+          key: navigatorKey,
           pages: _pagesFromState,
           onPopPage: _onPopPageParser,
         ),
@@ -92,7 +90,9 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// This happens right after the RouteInformation has been parsed by the [Router].
   /// For example: when a URL has been manually inserted, the URL get’s parsed, then this mehod is called.
   @override
-  Future<void> setNewRoutePath(BRouterState configuration) => _bloc.setNewRoutePath(configuration);
+  Future<void> setNewRoutePath(BRouterState configuration) => SynchronousFuture(
+        _bloc.setNewRoutePath(configuration),
+      );
 
   /// Manage popped [Page]s.
   ///
@@ -101,6 +101,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   ///
   /// For more see [Navigator.onPopPage].
   bool _onPopPageParser(Route<dynamic> route, dynamic result) {
+    print("_onPopPageParser");
     if (!route.didPop(result)) return false;
     return _bloc.popRoute(result);
   }
@@ -140,7 +141,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
       return _navigatorState!.maybePop();
     }
     return (stayOpened != null)
-        ? (await stayOpened!(_navigatorKey.currentContext!) ?? true)
+        ? (await stayOpened!(navigatorKey!.currentContext!) ?? true)
         : false;
   }
 

@@ -116,20 +116,18 @@ class BRouterState with _$BRouterState {
   }
 
   String _locationFromRoutes(List<BRoute> list) {
+    String path = "";
     String query = "";
-    List<String> pathSegments = const [];
+    if (list.length == 1 && list.first.path == BRouterState.rootPath) {
+      return "/";
+    }
     for (final route in list) {
-      query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
       if (route.path != rootPath) {
-        final path = (pathSegments.isNotEmpty && (pathSegments.last == route.pathSegments.first))
-            ? route.name
-            : route.path;
-        pathSegments = List.from([
-          ...pathSegments,
-          path.replaceFirst(BRoute.parameterStart, ""),
-        ]);
+        query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
+        final routePath = path.endsWith(route.pathSegments.first) ? route.name : route.path;
+        path += "/${routePath.replaceFirst(BRoute.parameterStart, "")}";
       }
     }
-    return "${pathSegments.join("/")}${query.isNotEmpty ? "?" : ""}$query";
+    return query.isNotEmpty ? "$path?$query" : path;
   }
 }

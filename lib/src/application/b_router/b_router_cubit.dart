@@ -137,7 +137,7 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// tot unauthenticated users.
   ///
   /// Because we need to use futures, we cannot return a synchronous value.
-  Future<void> setNewRoutePath(BRouterState parsedState) async {
+  void setNewRoutePath(BRouterState parsedState) {
     _logger.d("setNewRoutePath was called for state: $parsedState");
     parsedState.whenOrNull(
       initial: goToRoot,
