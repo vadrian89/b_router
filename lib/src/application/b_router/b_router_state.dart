@@ -36,10 +36,25 @@ class BRouterState with _$BRouterState {
   const factory BRouterState.poppedResult({required String name, dynamic popResult}) =
       _PoppedResult;
 
-  /// Factory constructor used to get the correct state from an [Uri].
+  /// Built the state based on the provided [Uri].
   ///
   /// This constructor is used inside [BRouterParser.parseRouteInformation] and used for redirect
   /// in [BRouterCubit.redirect].
+  ///
+  /// [routes] list contains all the routes available to the router and is used to find the correct
+  /// routes.
+  ///
+  /// The workflow is as follows:
+  /// 1. It will try and retrieve the root route. If this fail [BRouterState.unknown] will be returned.
+  /// 2. It will loop between all [Uri.pathSegments] and try to find the correct route:
+  ///   a. It will try to find a route based on the current segment. If none is found and the route has only
+  ///   1 segment inside the path it will return [BRouterState.unknown].
+  ///   b. Otherwise, if it's not the first path segment, it will try to find a route by combining
+  ///   previous segment with current segment ```"${pathSegments[i - 1]}/$segment"``` (i is the
+  ///   current index in the loop).
+  /// 3. It will regenerate the found routes list and it will attach the query parameters passed
+  /// from [uri] to the 2nd round in found list. This is because we don't know which route contains which
+  /// parameter.
   factory BRouterState.fromUri({required Uri uri, required List<BRoute> routes}) {
     List<BRoute> routesList = const [];
     final rootRoute = BRoute.rootRoute(routes);
@@ -72,18 +87,7 @@ class BRouterState with _$BRouterState {
     return BRouterState.routesFound(routes: routesList);
   }
 
-  /// Get the location of the current navigation stack.
-  ///
-  /// Example: ```/page1/page2/?p=some-parameter```
-  String get location => maybeWhen(
-        initial: () => rootPath,
-        routesFound: (routes) {
-          final path = _locationFromRoutes(routes);
-          return path.isNotEmpty ? path : rootPath;
-        },
-        orElse: () => notFoundPath,
-      );
-
+  /// Get the app [Uri] based on the current state.
   Uri get uri => maybeWhen(
         initial: () => Uri.parse(rootPath),
         orElse: () => Uri.parse(notFoundPath),
@@ -113,21 +117,5 @@ class BRouterState with _$BRouterState {
       }
     }
     return tmpList;
-  }
-
-  String _locationFromRoutes(List<BRoute> list) {
-    String path = "";
-    String query = "";
-    if (list.length == 1 && list.first.path == BRouterState.rootPath) {
-      return "/";
-    }
-    for (final route in list) {
-      if (route.path != rootPath) {
-        query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
-        final routePath = path.endsWith(route.pathSegments.first) ? route.name : route.path;
-        path += "/${routePath.replaceFirst(BRoute.parameterStart, "")}";
-      }
-    }
-    return query.isNotEmpty ? "$path?$query" : path;
   }
 }

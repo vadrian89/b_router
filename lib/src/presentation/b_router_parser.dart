@@ -28,7 +28,34 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   /// It's required to properly update the browser's history.
   @override
   RouteInformation restoreRouteInformation(BRouterState configuration) => RouteInformation(
-        location: configuration.location,
-        state: configuration,
+        location: _location(configuration),
       );
+
+  /// Get the location of the current navigation stack.
+  ///
+  /// Example: ```/page1/page2/?p=some-parameter```
+  String _location(BRouterState state) => state.maybeWhen(
+        initial: () => BRouterState.rootPath,
+        routesFound: (routes) {
+          final path = _locationFromRoutes(routes);
+          return path.isNotEmpty ? path : BRouterState.rootPath;
+        },
+        orElse: () => BRouterState.notFoundPath,
+      );
+
+  String _locationFromRoutes(List<BRoute> list) {
+    String path = "";
+    String query = "";
+    if (list.length == 1 && list.first.path == BRouterState.rootPath) {
+      return "/";
+    }
+    for (final route in list) {
+      if (route.path != BRouterState.rootPath) {
+        query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
+        final routePath = path.endsWith(route.pathSegments.first) ? route.name : route.path;
+        path += "/${routePath.replaceFirst(BRoute.parameterStart, "")}";
+      }
+    }
+    return query.isNotEmpty ? "$path?$query" : path;
+  }
 }
