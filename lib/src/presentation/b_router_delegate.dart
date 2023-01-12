@@ -101,7 +101,6 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   ///
   /// For more see [Navigator.onPopPage].
   bool _onPopPageParser(Route<dynamic> route, dynamic result) {
-    print("_onPopPageParser");
     if (!route.didPop(result)) return false;
     return _bloc.popRoute(result);
   }
