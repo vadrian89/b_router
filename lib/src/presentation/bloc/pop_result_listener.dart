@@ -29,11 +29,11 @@ class PopResultListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocListener<BRouterCubit, BRouterState>(
         listener: (context, state) => state.whenOrNull(
-          poppedResult: (_, popResult) => onResultChanged(popResult),
+          poppedResult: (_, __, popResult) => onResultChanged(popResult),
         ),
         listenWhen: (_, current) => current.maybeWhen(
           orElse: () => false,
-          poppedResult: (name, popResult) => popResult != null && name == pathName,
+          poppedResult: (route, _, popResult) => popResult != null && route.name == pathName,
         ),
         child: child,
       );

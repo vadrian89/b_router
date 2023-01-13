@@ -21,7 +21,9 @@ mixin _$BRouterState {
     required TResult Function() initial,
     required TResult Function(List<BRoute> routes) routesFound,
     required TResult Function() unknown,
-    required TResult Function(String name, dynamic popResult) poppedResult,
+    required TResult Function(BRoute route,
+            @Deprecated("Will be deleted") String name, dynamic popResult)
+        poppedResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +31,9 @@ mixin _$BRouterState {
     TResult? Function()? initial,
     TResult? Function(List<BRoute> routes)? routesFound,
     TResult? Function()? unknown,
-    TResult? Function(String name, dynamic popResult)? poppedResult,
+    TResult? Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +41,9 @@ mixin _$BRouterState {
     TResult Function()? initial,
     TResult Function(List<BRoute> routes)? routesFound,
     TResult Function()? unknown,
-    TResult Function(String name, dynamic popResult)? poppedResult,
+    TResult Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -126,7 +132,9 @@ class _$_Initial extends _Initial {
     required TResult Function() initial,
     required TResult Function(List<BRoute> routes) routesFound,
     required TResult Function() unknown,
-    required TResult Function(String name, dynamic popResult) poppedResult,
+    required TResult Function(BRoute route,
+            @Deprecated("Will be deleted") String name, dynamic popResult)
+        poppedResult,
   }) {
     return initial();
   }
@@ -137,7 +145,9 @@ class _$_Initial extends _Initial {
     TResult? Function()? initial,
     TResult? Function(List<BRoute> routes)? routesFound,
     TResult? Function()? unknown,
-    TResult? Function(String name, dynamic popResult)? poppedResult,
+    TResult? Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
   }) {
     return initial?.call();
   }
@@ -148,7 +158,9 @@ class _$_Initial extends _Initial {
     TResult Function()? initial,
     TResult Function(List<BRoute> routes)? routesFound,
     TResult Function()? unknown,
-    TResult Function(String name, dynamic popResult)? poppedResult,
+    TResult Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -274,7 +286,9 @@ class _$_RoutesFound extends _RoutesFound {
     required TResult Function() initial,
     required TResult Function(List<BRoute> routes) routesFound,
     required TResult Function() unknown,
-    required TResult Function(String name, dynamic popResult) poppedResult,
+    required TResult Function(BRoute route,
+            @Deprecated("Will be deleted") String name, dynamic popResult)
+        poppedResult,
   }) {
     return routesFound(routes);
   }
@@ -285,7 +299,9 @@ class _$_RoutesFound extends _RoutesFound {
     TResult? Function()? initial,
     TResult? Function(List<BRoute> routes)? routesFound,
     TResult? Function()? unknown,
-    TResult? Function(String name, dynamic popResult)? poppedResult,
+    TResult? Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
   }) {
     return routesFound?.call(routes);
   }
@@ -296,7 +312,9 @@ class _$_RoutesFound extends _RoutesFound {
     TResult Function()? initial,
     TResult Function(List<BRoute> routes)? routesFound,
     TResult Function()? unknown,
-    TResult Function(String name, dynamic popResult)? poppedResult,
+    TResult Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
     required TResult orElse(),
   }) {
     if (routesFound != null) {
@@ -394,7 +412,9 @@ class _$_Unknown extends _Unknown {
     required TResult Function() initial,
     required TResult Function(List<BRoute> routes) routesFound,
     required TResult Function() unknown,
-    required TResult Function(String name, dynamic popResult) poppedResult,
+    required TResult Function(BRoute route,
+            @Deprecated("Will be deleted") String name, dynamic popResult)
+        poppedResult,
   }) {
     return unknown();
   }
@@ -405,7 +425,9 @@ class _$_Unknown extends _Unknown {
     TResult? Function()? initial,
     TResult? Function(List<BRoute> routes)? routesFound,
     TResult? Function()? unknown,
-    TResult? Function(String name, dynamic popResult)? poppedResult,
+    TResult? Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
   }) {
     return unknown?.call();
   }
@@ -416,7 +438,9 @@ class _$_Unknown extends _Unknown {
     TResult Function()? initial,
     TResult Function(List<BRoute> routes)? routesFound,
     TResult Function()? unknown,
-    TResult Function(String name, dynamic popResult)? poppedResult,
+    TResult Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -474,7 +498,10 @@ abstract class _$$_PoppedResultCopyWith<$Res> {
           _$_PoppedResult value, $Res Function(_$_PoppedResult) then) =
       __$$_PoppedResultCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name, dynamic popResult});
+  $Res call(
+      {BRoute route,
+      @Deprecated("Will be deleted") String name,
+      dynamic popResult});
 }
 
 /// @nodoc
@@ -488,10 +515,15 @@ class __$$_PoppedResultCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? route = null,
     Object? name = null,
     Object? popResult = null,
   }) {
     return _then(_$_PoppedResult(
+      route: null == route
+          ? _value.route
+          : route // ignore: cast_nullable_to_non_nullable
+              as BRoute,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -507,16 +539,23 @@ class __$$_PoppedResultCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PoppedResult extends _PoppedResult {
-  const _$_PoppedResult({required this.name, this.popResult}) : super._();
+  const _$_PoppedResult(
+      {required this.route,
+      @Deprecated("Will be deleted") required this.name,
+      this.popResult})
+      : super._();
 
   @override
+  final BRoute route;
+  @override
+  @Deprecated("Will be deleted")
   final String name;
   @override
   final dynamic popResult;
 
   @override
   String toString() {
-    return 'BRouterState.poppedResult(name: $name, popResult: $popResult)';
+    return 'BRouterState.poppedResult(route: $route, name: $name, popResult: $popResult)';
   }
 
   @override
@@ -524,13 +563,14 @@ class _$_PoppedResult extends _PoppedResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PoppedResult &&
+            (identical(other.route, route) || other.route == route) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other.popResult, popResult));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(popResult));
+      runtimeType, route, name, const DeepCollectionEquality().hash(popResult));
 
   @JsonKey(ignore: true)
   @override
@@ -544,9 +584,11 @@ class _$_PoppedResult extends _PoppedResult {
     required TResult Function() initial,
     required TResult Function(List<BRoute> routes) routesFound,
     required TResult Function() unknown,
-    required TResult Function(String name, dynamic popResult) poppedResult,
+    required TResult Function(BRoute route,
+            @Deprecated("Will be deleted") String name, dynamic popResult)
+        poppedResult,
   }) {
-    return poppedResult(name, popResult);
+    return poppedResult(route, name, popResult);
   }
 
   @override
@@ -555,9 +597,11 @@ class _$_PoppedResult extends _PoppedResult {
     TResult? Function()? initial,
     TResult? Function(List<BRoute> routes)? routesFound,
     TResult? Function()? unknown,
-    TResult? Function(String name, dynamic popResult)? poppedResult,
+    TResult? Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
   }) {
-    return poppedResult?.call(name, popResult);
+    return poppedResult?.call(route, name, popResult);
   }
 
   @override
@@ -566,11 +610,13 @@ class _$_PoppedResult extends _PoppedResult {
     TResult Function()? initial,
     TResult Function(List<BRoute> routes)? routesFound,
     TResult Function()? unknown,
-    TResult Function(String name, dynamic popResult)? poppedResult,
+    TResult Function(BRoute route, @Deprecated("Will be deleted") String name,
+            dynamic popResult)?
+        poppedResult,
     required TResult orElse(),
   }) {
     if (poppedResult != null) {
-      return poppedResult(name, popResult);
+      return poppedResult(route, name, popResult);
     }
     return orElse();
   }
@@ -615,9 +661,13 @@ class _$_PoppedResult extends _PoppedResult {
 
 abstract class _PoppedResult extends BRouterState {
   const factory _PoppedResult(
-      {required final String name, final dynamic popResult}) = _$_PoppedResult;
+      {required final BRoute route,
+      @Deprecated("Will be deleted") required final String name,
+      final dynamic popResult}) = _$_PoppedResult;
   const _PoppedResult._() : super._();
 
+  BRoute get route;
+  @Deprecated("Will be deleted")
   String get name;
   dynamic get popResult;
   @JsonKey(ignore: true)

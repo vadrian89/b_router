@@ -101,7 +101,11 @@ class BRouterCubit extends Cubit<BRouterState> {
       routesFound: (routes) {
         if (result != null) {
           _logger.w("Result was returned from page: $result");
-          emit(BRouterState.poppedResult(name: routes.last.name, popResult: result));
+          emit(BRouterState.poppedResult(
+            route: routes.last,
+            popResult: result,
+            name: routes.last.name,
+          ));
         }
         if (routes.length == 1) {
           _logger.w("Pop route was called at root!");
