@@ -34,6 +34,10 @@ class MainScreen extends StatelessWidget {
                 onPressed: () => context.bRedirect(location: "redirected-screen/5546"),
                 child: const Text("Redirect to 'redirected-screen/5546'"),
               ),
+              ElevatedButton(
+                onPressed: () => context.bRedirect(location: "other-screen"),
+                child: const Text("other-screen"),
+              ),
             ],
           ),
         ),
