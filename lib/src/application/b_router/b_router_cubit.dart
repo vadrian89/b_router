@@ -50,8 +50,9 @@ class BRouterCubit extends Cubit<BRouterState> {
       return;
     }
 
+    final sanitizedArguments = Map<String, dynamic>.from(arguments ?? const {});
     final route = BRoute.fromPath(name, _allRoutes)?.addParameters(
-      arguments: arguments,
+      arguments: sanitizedArguments..removeWhere((_, value) => value == null),
       params: params,
     );
 
@@ -100,11 +101,14 @@ class BRouterCubit extends Cubit<BRouterState> {
       unknown: goToRoot,
       routesFound: (routes) {
         if (result != null) {
-          _logger.w("Result was returned from page: $result");
+          final route = routes.last;
+          _logger.w("Route '${route.path}' returned the following result: $result");
           emit(BRouterState.poppedResult(
-            route: routes.last,
+            route: route,
             popResult: result,
-            name: routes.last.name,
+
+            /// TODO; remove completely.
+            name: route.name,
           ));
         }
         if (routes.length == 1) {
