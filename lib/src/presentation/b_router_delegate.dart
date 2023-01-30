@@ -31,6 +31,8 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// By default it will use [NotFoundScreen].
   final Widget Function(BuildContext context)? errorBuilder;
 
+  final String? Function(BuildContext context, BRouterState state)? redirect;
+
   NavigatorState? get _navigatorState => navigatorKey!.currentState;
 
   @override
@@ -44,6 +46,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
     required BRouterCubit bloc,
     this.stayOpened,
     this.errorBuilder,
+    this.redirect,
   })  : _navigatorKey = navigatorKey,
         _bloc = bloc;
 
@@ -52,26 +55,47 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
         listener: (_, __) => notifyListeners(),
         child: Navigator(
           key: navigatorKey,
-          pages: _pagesFromState,
+          pages: _pagesFromState(context),
           onPopPage: _onPopPageParser,
         ),
       );
 
-  List<Page> get _pagesFromState => currentConfiguration.maybeWhen(
+  List<Page> _pagesFromState(BuildContext context) => currentConfiguration.maybeWhen(
         orElse: () => [],
-        routesFound: (routes) => List.generate(
-          routes.length,
-          (index) => _materialPage(
-            valueKey: "${routes[index].name}_page",
-            child: Builder(
-              builder: (context) => routes[index].pageBuilder(
-                context,
-                routes[index].arguments,
-                currentConfiguration.uri,
+        routesFound: (routes) {
+          final path = (redirect != null) ? redirect!(context, currentConfiguration) : null;
+          if (path?.isNotEmpty ?? false) {
+            final route = routes.firstWhere(
+              (element) => element.path == path,
+              orElse: () => routes.first,
+            );
+            return [
+              _materialPage(
+                valueKey: "${route.name}_page",
+                child: Builder(
+                  builder: (context) => routes.first.pageBuilder(
+                    context,
+                    route.arguments,
+                    currentConfiguration.uri,
+                  ),
+                ),
+              ),
+            ];
+          }
+          return List.generate(
+            routes.length,
+            (index) => _materialPage(
+              valueKey: "${routes[index].name}_page",
+              child: Builder(
+                builder: (context) => routes[index].pageBuilder(
+                  context,
+                  routes[index].arguments,
+                  currentConfiguration.uri,
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
         unknown: () => [
           _materialPage(
             valueKey: "not_found_page",
