@@ -11,11 +11,16 @@ part 'b_router_cubit.freezed.dart';
 class BRouterCubit extends Cubit<BRouterState> {
   final Logger _logger;
   final List<BRoute> _allRoutes;
-
-  /// Get the list of the routes for this router.
-  List<BRoute> get routes => _allRoutes;
-
   List<BRoute> _pushedRoutes = const [];
+
+  /// Get a list of the all routes for this router.
+  List<BRoute> get allRoutes => List.from(_allRoutes);
+
+  /// Get a list of currently pushed routes for this router.
+  List<BRoute> get pushedRoutes => List.from(_pushedRoutes);
+
+  /// Get the top-most pushed route from [pushedRoutes].
+  BRoute get topRoute => pushedRoutes.last;
 
   BRouterCubit({required List<BRoute> routes})
       : _logger = Logger(),
@@ -105,10 +110,8 @@ class BRouterCubit extends Cubit<BRouterState> {
           _logger.w("Route '${route.path}' returned the following result: $result");
           emit(BRouterState.poppedResult(
             route: route,
+            uri: state.uri,
             popResult: result,
-
-            /// TODO; remove completely.
-            name: route.name,
           ));
         }
         if (routes.length == 1) {
@@ -133,7 +136,7 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// Recommended to be used whenever you want to go the root of the app.
   bool goToRoot() {
     _logger.d("goToRoot was called.");
-    _pushedRoutes = List.from([BRoute.rootRoute(routes)]);
+    _pushedRoutes = List.from([BRoute.rootRoute(allRoutes)]);
     _showFound();
     return true;
   }

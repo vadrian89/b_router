@@ -32,10 +32,11 @@ class BRouterState with _$BRouterState {
   /// Emitted when a screen poped with a result.
   ///
   /// [route] is the one which returned this result.
+  /// [uri] is the current [Uri] when pop occured.
   /// [popResult] is the result returned.
   const factory BRouterState.poppedResult({
     required BRoute route,
-    @Deprecated("Will be deleted") required String name,
+    required Uri uri,
     dynamic popResult,
   }) = _PoppedResult;
 
