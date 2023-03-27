@@ -21,7 +21,7 @@ class NotFoundScreen extends StatelessWidget {
             Flexible(
               child: Text(
                 "Error 404: resource not found!",
-                style: themeData.textTheme.headline2!.copyWith(color: foregroundColor),
+                style: themeData.textTheme.displayMedium!.copyWith(color: foregroundColor),
                 textAlign: TextAlign.center,
               ),
             ),

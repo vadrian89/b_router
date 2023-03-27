@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget {
             children: [
               Text(
                 "First level screen",
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               ElevatedButton(
                 onPressed: () => context.bPush(name: "simple-screen-1"),
