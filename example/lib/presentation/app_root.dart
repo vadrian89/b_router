@@ -98,7 +98,10 @@ class _AppRootState extends State<AppRoot> {
         ),
         BRoute(
           path: "other-screen",
-          pageBuilder: (context, arguments, uri) => const RedirectedScreen(text: ""),
+          allowedParams: const ["foo"],
+          pageBuilder: (context, arguments, uri) => RedirectedScreen(
+            text: uri.queryParameters["foo"] ?? "",
+          ),
         ),
         BRoute(
           path: "simple-screen-1",

@@ -63,7 +63,7 @@ class BRouterState with _$BRouterState {
     var routesList = const <BRoute>[];
 
     /// First we try to find the root route.
-    final rootRoute = BRoute.rootRoute(routes);
+    final rootRoute = BRoute.rootRoute(routes)?.addParameters(params: uri.queryParameters);
     if (rootRoute == null) {
       return const BRouterState.unknown();
     }

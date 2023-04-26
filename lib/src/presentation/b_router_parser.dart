@@ -46,9 +46,6 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   String _locationFromRoutes(List<BRoute> list) {
     String path = "";
     String query = "";
-    if (list.length == 1 && list.first.path == BRouterState.rootPath) {
-      return "/";
-    }
     for (final route in list) {
       if (route.path != BRouterState.rootPath) {
         query += route.params.entries.map((e) => "${e.key}=${e.value}").join(",");
