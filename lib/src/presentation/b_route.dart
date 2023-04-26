@@ -34,6 +34,18 @@ class BRoute extends Equatable {
   /// If you want to add objects which should not be added the the URL, user [arguments] instead.
   final Map<String, String> params;
 
+  /// The parameters which are accepted by this route.
+  ///
+  /// Used to help route parsing when the route was pushed from the system and filter which
+  /// [params] are allowed.
+  ///
+  /// The list should contain the key of the [params] which are allowed.
+  ///
+  /// For example, if the route pushed from the system is: `myuri.com/products?param=1` and the
+  /// route is defined as: `BRoute(path: "products", acceptedParams: ["param"])` then the route
+  /// the provided param from the uri will be added to this route's params.
+  final List<String> allowedParams;
+
   /// The page which will be used to populate the navigation stack.
   final Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri) pageBuilder;
 
@@ -55,6 +67,7 @@ class BRoute extends Equatable {
         path,
         ...arguments.values,
         ...params.values,
+        ...allowedParams,
       ];
 
   @override
@@ -64,6 +77,7 @@ class BRoute extends Equatable {
     required this.path,
     this.arguments = const <String, dynamic>{},
     this.params = const <String, String>{},
+    this.allowedParams = const <String>[],
     required this.pageBuilder,
   });
 
@@ -109,13 +123,29 @@ class BRoute extends Equatable {
   /// Add all parameters to this instance's arguments list.
   ///
   /// [arguments] are appended while [params] are replaced.
+  /// [params] are used to set [Uri.queryParameters].
+  ///
+  /// Only parameters in the [allowedParams] list are added to [params].
   BRoute addParameters({Map<String, dynamic>? arguments, Map<String, String>? params}) => copyWith(
         arguments: {
           ...this.arguments,
           ...?arguments,
         },
-        params: params,
+        params: _filterParams(params),
       );
+
+  Map<String, String>? _filterParams([Map<String, String>? params]) {
+    if (params == null) {
+      return null;
+    }
+    final filteredParams = <String, String>{};
+    for (final param in params.entries) {
+      if (allowedParams.contains(param.key)) {
+        filteredParams.putIfAbsent(param.key, () => param.value);
+      }
+    }
+    return filteredParams;
+  }
 
   /// Get the root route from [routes].
   static BRoute? rootRoute(List<BRoute> routes) => fromPath("/", routes);

@@ -60,35 +60,40 @@ class BRouterState with _$BRouterState {
   /// from [uri] to the 2nd round in found list. This is because we don't know which route contains which
   /// parameter.
   factory BRouterState.fromUri({required Uri uri, required List<BRoute> routes}) {
-    List<BRoute> routesList = const [];
+    var routesList = const <BRoute>[];
+
+    /// First we try to find the root route.
     final rootRoute = BRoute.rootRoute(routes);
     if (rootRoute == null) {
       return const BRouterState.unknown();
     }
     routesList = List.from([rootRoute]);
+
+    /// Then we loop between all path segments and try to find the correct route.
     final pathSegments = uri.pathSegments;
     for (int i = 0; i < pathSegments.length; i++) {
       final segment = pathSegments[i];
       BRoute? route = BRoute.fromPath(segment, routes);
+
+      /// If we can't find a route and the path only contains 1 segment we return unknown.
       if (route == null && pathSegments.length < 2) {
         const BRouterState.unknown();
       }
+
+      /// Otherwise, if it's not the first path segment, we try to find a route by combining
+      /// previous segment with current segment.
       if (i > 0) {
         route ??= BRoute.fromPath("${pathSegments[i - 1]}/$segment", routes);
       }
+
+      /// If we found a route we add it to the list.
       if (route != null) {
-        routesList = List.from([...routesList, route]);
+        routesList = List.from([...routesList, route.addParameters(params: uri.queryParameters)]);
       }
     }
-    if (routesList.length > 1) {
-      routesList = List.generate(
-        routesList.length,
-        (index) => (index == 1)
-            ? routesList[index].addParameters(params: uri.queryParameters)
-            : routesList[index],
-      );
-    }
-    return BRouterState.routesFound(routes: routesList);
+
+    /// Finally we return the state.
+    return BRouterState.routesFound(routes: List.from(routesList));
   }
 
   /// Get the app [Uri] based on the current state.

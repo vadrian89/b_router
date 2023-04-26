@@ -73,6 +73,7 @@ class _AppRootState extends State<AppRoot> {
         ),
         BRoute(
           path: "page2",
+          allowedParams: const ["something"],
           pageBuilder: (context, arguments, uri) => SecondScreen(
             text: uri.queryParameters["something"] ?? "no argument was provided",
           ),
