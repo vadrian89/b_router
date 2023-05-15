@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:b_router/src/presentation/bloc/b_router_listener.dart';
+import 'package:b_router/b_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../application/b_router/b_router_cubit.dart';
-import 'not_found_screen.dart';
 
 /// The root delegate of the app.
 ///
@@ -33,6 +30,14 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
 
   final String? Function(BuildContext context, BRouterState state)? redirect;
 
+  /// Custom page builder.
+  ///
+  /// If set, it will be used to build the page instead of the default one.
+  /// This is because the default page builder builds a [MaterialPage] with a standard key.
+  ///
+  /// This method brings more flexibility to the developer.
+  final Page Function(BuildContext context, BRoute route)? pageBuilder;
+
   NavigatorState? get _navigatorState => navigatorKey!.currentState;
 
   @override
@@ -47,6 +52,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
     this.stayOpened,
     this.errorBuilder,
     this.redirect,
+    this.pageBuilder,
   })  : _navigatorKey = navigatorKey,
         _bloc = bloc;
 
@@ -70,34 +76,37 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
               orElse: () => routes.first,
             );
             return [
-              _materialPage(
-                valueKey: "${route.name}_page",
-                child: Builder(
-                  builder: (context) => routes.first.pageBuilder(
-                    context,
-                    route.arguments,
-                    currentConfiguration.uri,
+              pageBuilder?.call(context, route) ??
+                  _page(
+                    valueKey: "${route.name}_page",
+                    child: Builder(
+                      builder: (context) => routes.first.routeBuilder(
+                        context,
+                        route.arguments,
+                        currentConfiguration.uri,
+                      ),
+                    ),
                   ),
-                ),
-              ),
             ];
           }
           return List.generate(
             routes.length,
-            (index) => _materialPage(
-              valueKey: "${routes[index].name}_page",
-              child: Builder(
-                builder: (context) => routes[index].pageBuilder(
-                  context,
-                  routes[index].arguments,
-                  currentConfiguration.uri,
+            (index) =>
+                pageBuilder?.call(context, routes[index]) ??
+                _page(
+                  valueKey: "${routes[index].name}_page",
+                  child: Builder(
+                    builder: (context) => routes[index].routeBuilder(
+                      context,
+                      routes[index].arguments,
+                      currentConfiguration.uri,
+                    ),
+                  ),
                 ),
-              ),
-            ),
           );
         },
         unknown: () => [
-          _materialPage(
+          _page(
             valueKey: "not_found_page",
             child: Builder(
               builder: (errorBuilder != null) ? errorBuilder! : (context) => const NotFoundScreen(),
@@ -169,7 +178,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   }
 
   /// Build a [Page] (screens) to use in [Navigator.pages] list.
-  Page _materialPage({
+  Page _page({
     required String valueKey,
     required Widget child,
   }) =>

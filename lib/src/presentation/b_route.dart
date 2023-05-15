@@ -47,7 +47,8 @@ class BRoute extends Equatable {
   final List<String> allowedParams;
 
   /// The page which will be used to populate the navigation stack.
-  final Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri) pageBuilder;
+  final Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri)
+      routeBuilder;
 
   /// The name part of the [path].
   ///
@@ -78,7 +79,7 @@ class BRoute extends Equatable {
     this.arguments = const <String, dynamic>{},
     this.params = const <String, String>{},
     this.allowedParams = const <String>[],
-    required this.pageBuilder,
+    required this.routeBuilder,
   });
 
   /// Get the route, from [routes], using [name], if exists.
@@ -154,12 +155,12 @@ class BRoute extends Equatable {
     String? path,
     Map<String, dynamic>? arguments,
     Map<String, String>? params,
-    Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri)? pageBuilder,
+    Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri)? routeBuilder,
   }) =>
       BRoute(
         path: path ?? this.path,
         arguments: arguments ?? this.arguments,
         params: params ?? this.params,
-        pageBuilder: pageBuilder ?? this.pageBuilder,
+        routeBuilder: routeBuilder ?? this.routeBuilder,
       );
 }
