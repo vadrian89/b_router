@@ -69,64 +69,64 @@ class _AppRootState extends State<AppRoot> {
   List<BRoute> get _routes => [
         BRoute(
           path: "/",
-          routeBuilder: (context, _, __) => const MainScreen(),
+          builder: (context, _, __) => const MainScreen(),
         ),
         BRoute(
           path: "page2",
           allowedParams: const ["something"],
-          routeBuilder: (context, arguments, uri) => SecondScreen(
+          builder: (context, arguments, uri) => SecondScreen(
             text: uri.queryParameters["something"] ?? "no argument was provided",
           ),
         ),
         BRoute(
           path: "third-screen",
-          routeBuilder: (context, arguments, uri) => ThirdScreen(
+          builder: (context, arguments, uri) => ThirdScreen(
             text: arguments?["arg"] ?? "no argument was provided",
           ),
         ),
         BRoute(
           path: "third-screen/:id",
-          routeBuilder: (context, arguments, uri) => FourthScreen(
+          builder: (context, arguments, uri) => FourthScreen(
             text: arguments?["id"] ?? "no argument was provided",
           ),
         ),
         BRoute(
           path: "redirected-screen/:id",
-          routeBuilder: (context, arguments, uri) => RedirectedScreen(
+          builder: (context, arguments, uri) => RedirectedScreen(
             text: arguments?["id"] ?? "no argument was provided",
           ),
         ),
         BRoute(
           path: "other-screen",
           allowedParams: const ["foo"],
-          routeBuilder: (context, arguments, uri) => RedirectedScreen(
+          builder: (context, arguments, uri) => RedirectedScreen(
             text: uri.queryParameters["foo"] ?? "",
           ),
         ),
         BRoute(
           path: "simple-screen-1",
-          routeBuilder: (_, arguments, uri) => SimpleScreen(
+          builder: (_, arguments, uri) => SimpleScreen(
             screenNumber: 1,
             onButtonPressed: (context) => context.bPush(name: "simple-screen-2"),
           ),
         ),
         BRoute(
           path: "simple-screen-2",
-          routeBuilder: (_, arguments, uri) => SimpleScreen(
+          builder: (_, arguments, uri) => SimpleScreen(
             screenNumber: 2,
             onButtonPressed: (context) => context.bPush(name: "simple-screen-3"),
           ),
         ),
         BRoute(
           path: "simple-screen-3",
-          routeBuilder: (_, arguments, uri) => SimpleScreen(
+          builder: (_, arguments, uri) => SimpleScreen(
             screenNumber: 3,
             onButtonPressed: (context) => context.bPush(name: "simple-screen-4"),
           ),
         ),
         BRoute(
           path: "simple-screen-4",
-          routeBuilder: (_, arguments, uri) => SimpleScreen(
+          builder: (_, arguments, uri) => SimpleScreen(
             screenNumber: 4,
             onButtonPressed: (context) {},
           ),

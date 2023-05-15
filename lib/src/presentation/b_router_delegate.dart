@@ -80,7 +80,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
                   _page(
                     valueKey: "${route.name}_page",
                     child: Builder(
-                      builder: (context) => routes.first.routeBuilder(
+                      builder: (context) => routes.first.builder(
                         context,
                         route.arguments,
                         currentConfiguration.uri,
@@ -96,7 +96,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
                 _page(
                   valueKey: "${routes[index].name}_page",
                   child: Builder(
-                    builder: (context) => routes[index].routeBuilder(
+                    builder: (context) => routes[index].builder(
                       context,
                       routes[index].arguments,
                       currentConfiguration.uri,
