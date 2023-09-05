@@ -15,7 +15,7 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   /// Parse the incoming [Uri] string and based on [Uri.pathSegments] length return the correct [BRouterState].
   @override
   Future<BRouterState> parseRouteInformation(RouteInformation routeInformation) {
-    final uri = Uri.parse(routeInformation.location ?? "");
+    final uri = routeInformation.uri;
     BRouterState state = const BRouterState.initial();
     if (uri.pathSegments.isNotEmpty) {
       state = BRouterState.fromUri(uri: uri, routes: routes);
@@ -28,7 +28,7 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   /// It's required to properly update the browser's history.
   @override
   RouteInformation restoreRouteInformation(BRouterState configuration) => RouteInformation(
-        location: _location(configuration),
+        uri: Uri.tryParse(_location(configuration)),
       );
 
   /// Get the location of the current navigation stack.

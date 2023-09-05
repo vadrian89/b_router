@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'b_router_cubit.dart';
 
@@ -243,6 +243,7 @@ class _$_RoutesFound extends _RoutesFound {
   final List<BRoute> _routes;
   @override
   List<BRoute> get routes {
+    if (_routes is EqualUnmodifiableListView) return _routes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_routes);
   }
@@ -494,7 +495,7 @@ class __$$_PoppedResultCopyWithImpl<$Res>
   $Res call({
     Object? route = null,
     Object? uri = null,
-    Object? popResult = null,
+    Object? popResult = freezed,
   }) {
     return _then(_$_PoppedResult(
       route: null == route
@@ -505,7 +506,7 @@ class __$$_PoppedResultCopyWithImpl<$Res>
           ? _value.uri
           : uri // ignore: cast_nullable_to_non_nullable
               as Uri,
-      popResult: null == popResult
+      popResult: freezed == popResult
           ? _value.popResult
           : popResult // ignore: cast_nullable_to_non_nullable
               as dynamic,
