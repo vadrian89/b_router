@@ -1,7 +1,7 @@
 part of 'b_router_cubit.dart';
 
 @freezed
-class BRouterState with _$BRouterState {
+sealed class BRouterState with _$BRouterState {
   /// The root path of the app.
   static const rootPath = "/";
 
@@ -15,19 +15,19 @@ class BRouterState with _$BRouterState {
   ///
   /// This should be used to show the user a loading screen/widget, until the app verifies
   /// if the user is authenticated or not.
-  const factory BRouterState.initial() = _Initial;
+  const factory BRouterState.initial() = InitialRoute;
 
   /// [BRouterState.routesFound] contains all the routes found.
   ///
   /// [modalsOpened] is the number of modal/dialogs opened and is a counter to safely close them
   /// without closing the top screen.
-  const factory BRouterState.routesFound({required List<BRoute> routes}) = _RoutesFound;
+  const factory BRouterState.routesFound({required List<BRoute> routes}) = FoundRoutes;
 
   /// [BRouterState.unknown] is the state returned when the user requests an uknown page.
   ///
   /// This is the equivalent of error 404 for HTTP requests: https://en.wikipedia.org/wiki/HTTP_404.
   /// It shows [UnkownScreen].
-  const factory BRouterState.unknown() = _Unknown;
+  const factory BRouterState.unknown() = UnknownRoute;
 
   /// Emitted when a screen poped with a result.
   ///
@@ -38,7 +38,7 @@ class BRouterState with _$BRouterState {
     required BRoute route,
     required Uri uri,
     dynamic popResult,
-  }) = _PoppedResult;
+  }) = PoppedResultRoute;
 
   /// Built the state based on the provided [Uri].
   ///

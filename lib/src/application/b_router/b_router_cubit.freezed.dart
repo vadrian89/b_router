@@ -12,7 +12,7 @@ part of 'b_router_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$BRouterState {
@@ -44,26 +44,26 @@ mixin _$BRouterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_RoutesFound value) routesFound,
-    required TResult Function(_Unknown value) unknown,
-    required TResult Function(_PoppedResult value) poppedResult,
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_RoutesFound value)? routesFound,
-    TResult? Function(_Unknown value)? unknown,
-    TResult? Function(_PoppedResult value)? poppedResult,
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_RoutesFound value)? routesFound,
-    TResult Function(_Unknown value)? unknown,
-    TResult Function(_PoppedResult value)? poppedResult,
+    TResult Function(InitialRoute value)? initial,
+    TResult Function(FoundRoutes value)? routesFound,
+    TResult Function(UnknownRoute value)? unknown,
+    TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -88,24 +88,25 @@ class _$BRouterStateCopyWithImpl<$Res, $Val extends BRouterState>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$InitialRouteImplCopyWith<$Res> {
+  factory _$$InitialRouteImplCopyWith(
+          _$InitialRouteImpl value, $Res Function(_$InitialRouteImpl) then) =
+      __$$InitialRouteImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialRouteImplCopyWithImpl<$Res>
+    extends _$BRouterStateCopyWithImpl<$Res, _$InitialRouteImpl>
+    implements _$$InitialRouteImplCopyWith<$Res> {
+  __$$InitialRouteImplCopyWithImpl(
+      _$InitialRouteImpl _value, $Res Function(_$InitialRouteImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Initial extends _Initial {
-  const _$_Initial() : super._();
+class _$InitialRouteImpl extends InitialRoute {
+  const _$InitialRouteImpl() : super._();
 
   @override
   String toString() {
@@ -113,9 +114,9 @@ class _$_Initial extends _Initial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType && other is _$InitialRouteImpl);
   }
 
   @override
@@ -162,10 +163,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_RoutesFound value) routesFound,
-    required TResult Function(_Unknown value) unknown,
-    required TResult Function(_PoppedResult value) poppedResult,
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
   }) {
     return initial(this);
   }
@@ -173,10 +174,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_RoutesFound value)? routesFound,
-    TResult? Function(_Unknown value)? unknown,
-    TResult? Function(_PoppedResult value)? poppedResult,
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
   }) {
     return initial?.call(this);
   }
@@ -184,10 +185,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_RoutesFound value)? routesFound,
-    TResult Function(_Unknown value)? unknown,
-    TResult Function(_PoppedResult value)? poppedResult,
+    TResult Function(InitialRoute value)? initial,
+    TResult Function(FoundRoutes value)? routesFound,
+    TResult Function(UnknownRoute value)? unknown,
+    TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -197,26 +198,26 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends BRouterState {
-  const factory _Initial() = _$_Initial;
-  const _Initial._() : super._();
+abstract class InitialRoute extends BRouterState {
+  const factory InitialRoute() = _$InitialRouteImpl;
+  const InitialRoute._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_RoutesFoundCopyWith<$Res> {
-  factory _$$_RoutesFoundCopyWith(
-          _$_RoutesFound value, $Res Function(_$_RoutesFound) then) =
-      __$$_RoutesFoundCopyWithImpl<$Res>;
+abstract class _$$FoundRoutesImplCopyWith<$Res> {
+  factory _$$FoundRoutesImplCopyWith(
+          _$FoundRoutesImpl value, $Res Function(_$FoundRoutesImpl) then) =
+      __$$FoundRoutesImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<BRoute> routes});
 }
 
 /// @nodoc
-class __$$_RoutesFoundCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$_RoutesFound>
-    implements _$$_RoutesFoundCopyWith<$Res> {
-  __$$_RoutesFoundCopyWithImpl(
-      _$_RoutesFound _value, $Res Function(_$_RoutesFound) _then)
+class __$$FoundRoutesImplCopyWithImpl<$Res>
+    extends _$BRouterStateCopyWithImpl<$Res, _$FoundRoutesImpl>
+    implements _$$FoundRoutesImplCopyWith<$Res> {
+  __$$FoundRoutesImplCopyWithImpl(
+      _$FoundRoutesImpl _value, $Res Function(_$FoundRoutesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -224,7 +225,7 @@ class __$$_RoutesFoundCopyWithImpl<$Res>
   $Res call({
     Object? routes = null,
   }) {
-    return _then(_$_RoutesFound(
+    return _then(_$FoundRoutesImpl(
       routes: null == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
@@ -235,8 +236,8 @@ class __$$_RoutesFoundCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RoutesFound extends _RoutesFound {
-  const _$_RoutesFound({required final List<BRoute> routes})
+class _$FoundRoutesImpl extends FoundRoutes {
+  const _$FoundRoutesImpl({required final List<BRoute> routes})
       : _routes = routes,
         super._();
 
@@ -254,10 +255,10 @@ class _$_RoutesFound extends _RoutesFound {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RoutesFound &&
+            other is _$FoundRoutesImpl &&
             const DeepCollectionEquality().equals(other._routes, _routes));
   }
 
@@ -268,8 +269,8 @@ class _$_RoutesFound extends _RoutesFound {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RoutesFoundCopyWith<_$_RoutesFound> get copyWith =>
-      __$$_RoutesFoundCopyWithImpl<_$_RoutesFound>(this, _$identity);
+  _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
+      __$$FoundRoutesImplCopyWithImpl<_$FoundRoutesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -312,10 +313,10 @@ class _$_RoutesFound extends _RoutesFound {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_RoutesFound value) routesFound,
-    required TResult Function(_Unknown value) unknown,
-    required TResult Function(_PoppedResult value) poppedResult,
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
   }) {
     return routesFound(this);
   }
@@ -323,10 +324,10 @@ class _$_RoutesFound extends _RoutesFound {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_RoutesFound value)? routesFound,
-    TResult? Function(_Unknown value)? unknown,
-    TResult? Function(_PoppedResult value)? poppedResult,
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
   }) {
     return routesFound?.call(this);
   }
@@ -334,10 +335,10 @@ class _$_RoutesFound extends _RoutesFound {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_RoutesFound value)? routesFound,
-    TResult Function(_Unknown value)? unknown,
-    TResult Function(_PoppedResult value)? poppedResult,
+    TResult Function(InitialRoute value)? initial,
+    TResult Function(FoundRoutes value)? routesFound,
+    TResult Function(UnknownRoute value)? unknown,
+    TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) {
     if (routesFound != null) {
@@ -347,36 +348,37 @@ class _$_RoutesFound extends _RoutesFound {
   }
 }
 
-abstract class _RoutesFound extends BRouterState {
-  const factory _RoutesFound({required final List<BRoute> routes}) =
-      _$_RoutesFound;
-  const _RoutesFound._() : super._();
+abstract class FoundRoutes extends BRouterState {
+  const factory FoundRoutes({required final List<BRoute> routes}) =
+      _$FoundRoutesImpl;
+  const FoundRoutes._() : super._();
 
   List<BRoute> get routes;
   @JsonKey(ignore: true)
-  _$$_RoutesFoundCopyWith<_$_RoutesFound> get copyWith =>
+  _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnknownCopyWith<$Res> {
-  factory _$$_UnknownCopyWith(
-          _$_Unknown value, $Res Function(_$_Unknown) then) =
-      __$$_UnknownCopyWithImpl<$Res>;
+abstract class _$$UnknownRouteImplCopyWith<$Res> {
+  factory _$$UnknownRouteImplCopyWith(
+          _$UnknownRouteImpl value, $Res Function(_$UnknownRouteImpl) then) =
+      __$$UnknownRouteImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnknownCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$_Unknown>
-    implements _$$_UnknownCopyWith<$Res> {
-  __$$_UnknownCopyWithImpl(_$_Unknown _value, $Res Function(_$_Unknown) _then)
+class __$$UnknownRouteImplCopyWithImpl<$Res>
+    extends _$BRouterStateCopyWithImpl<$Res, _$UnknownRouteImpl>
+    implements _$$UnknownRouteImplCopyWith<$Res> {
+  __$$UnknownRouteImplCopyWithImpl(
+      _$UnknownRouteImpl _value, $Res Function(_$UnknownRouteImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Unknown extends _Unknown {
-  const _$_Unknown() : super._();
+class _$UnknownRouteImpl extends UnknownRoute {
+  const _$UnknownRouteImpl() : super._();
 
   @override
   String toString() {
@@ -384,9 +386,9 @@ class _$_Unknown extends _Unknown {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Unknown);
+        (other.runtimeType == runtimeType && other is _$UnknownRouteImpl);
   }
 
   @override
@@ -433,10 +435,10 @@ class _$_Unknown extends _Unknown {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_RoutesFound value) routesFound,
-    required TResult Function(_Unknown value) unknown,
-    required TResult Function(_PoppedResult value) poppedResult,
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
   }) {
     return unknown(this);
   }
@@ -444,10 +446,10 @@ class _$_Unknown extends _Unknown {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_RoutesFound value)? routesFound,
-    TResult? Function(_Unknown value)? unknown,
-    TResult? Function(_PoppedResult value)? poppedResult,
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
   }) {
     return unknown?.call(this);
   }
@@ -455,10 +457,10 @@ class _$_Unknown extends _Unknown {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_RoutesFound value)? routesFound,
-    TResult Function(_Unknown value)? unknown,
-    TResult Function(_PoppedResult value)? poppedResult,
+    TResult Function(InitialRoute value)? initial,
+    TResult Function(FoundRoutes value)? routesFound,
+    TResult Function(UnknownRoute value)? unknown,
+    TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -468,26 +470,26 @@ class _$_Unknown extends _Unknown {
   }
 }
 
-abstract class _Unknown extends BRouterState {
-  const factory _Unknown() = _$_Unknown;
-  const _Unknown._() : super._();
+abstract class UnknownRoute extends BRouterState {
+  const factory UnknownRoute() = _$UnknownRouteImpl;
+  const UnknownRoute._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_PoppedResultCopyWith<$Res> {
-  factory _$$_PoppedResultCopyWith(
-          _$_PoppedResult value, $Res Function(_$_PoppedResult) then) =
-      __$$_PoppedResultCopyWithImpl<$Res>;
+abstract class _$$PoppedResultRouteImplCopyWith<$Res> {
+  factory _$$PoppedResultRouteImplCopyWith(_$PoppedResultRouteImpl value,
+          $Res Function(_$PoppedResultRouteImpl) then) =
+      __$$PoppedResultRouteImplCopyWithImpl<$Res>;
   @useResult
   $Res call({BRoute route, Uri uri, dynamic popResult});
 }
 
 /// @nodoc
-class __$$_PoppedResultCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$_PoppedResult>
-    implements _$$_PoppedResultCopyWith<$Res> {
-  __$$_PoppedResultCopyWithImpl(
-      _$_PoppedResult _value, $Res Function(_$_PoppedResult) _then)
+class __$$PoppedResultRouteImplCopyWithImpl<$Res>
+    extends _$BRouterStateCopyWithImpl<$Res, _$PoppedResultRouteImpl>
+    implements _$$PoppedResultRouteImplCopyWith<$Res> {
+  __$$PoppedResultRouteImplCopyWithImpl(_$PoppedResultRouteImpl _value,
+      $Res Function(_$PoppedResultRouteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -497,7 +499,7 @@ class __$$_PoppedResultCopyWithImpl<$Res>
     Object? uri = null,
     Object? popResult = freezed,
   }) {
-    return _then(_$_PoppedResult(
+    return _then(_$PoppedResultRouteImpl(
       route: null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
@@ -516,8 +518,8 @@ class __$$_PoppedResultCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PoppedResult extends _PoppedResult {
-  const _$_PoppedResult(
+class _$PoppedResultRouteImpl extends PoppedResultRoute {
+  const _$PoppedResultRouteImpl(
       {required this.route, required this.uri, this.popResult})
       : super._();
 
@@ -534,10 +536,10 @@ class _$_PoppedResult extends _PoppedResult {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PoppedResult &&
+            other is _$PoppedResultRouteImpl &&
             (identical(other.route, route) || other.route == route) &&
             (identical(other.uri, uri) || other.uri == uri) &&
             const DeepCollectionEquality().equals(other.popResult, popResult));
@@ -550,8 +552,9 @@ class _$_PoppedResult extends _PoppedResult {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PoppedResultCopyWith<_$_PoppedResult> get copyWith =>
-      __$$_PoppedResultCopyWithImpl<_$_PoppedResult>(this, _$identity);
+  _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
+      __$$PoppedResultRouteImplCopyWithImpl<_$PoppedResultRouteImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -594,10 +597,10 @@ class _$_PoppedResult extends _PoppedResult {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_RoutesFound value) routesFound,
-    required TResult Function(_Unknown value) unknown,
-    required TResult Function(_PoppedResult value) poppedResult,
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
   }) {
     return poppedResult(this);
   }
@@ -605,10 +608,10 @@ class _$_PoppedResult extends _PoppedResult {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_RoutesFound value)? routesFound,
-    TResult? Function(_Unknown value)? unknown,
-    TResult? Function(_PoppedResult value)? poppedResult,
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
   }) {
     return poppedResult?.call(this);
   }
@@ -616,10 +619,10 @@ class _$_PoppedResult extends _PoppedResult {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_RoutesFound value)? routesFound,
-    TResult Function(_Unknown value)? unknown,
-    TResult Function(_PoppedResult value)? poppedResult,
+    TResult Function(InitialRoute value)? initial,
+    TResult Function(FoundRoutes value)? routesFound,
+    TResult Function(UnknownRoute value)? unknown,
+    TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) {
     if (poppedResult != null) {
@@ -629,17 +632,17 @@ class _$_PoppedResult extends _PoppedResult {
   }
 }
 
-abstract class _PoppedResult extends BRouterState {
-  const factory _PoppedResult(
+abstract class PoppedResultRoute extends BRouterState {
+  const factory PoppedResultRoute(
       {required final BRoute route,
       required final Uri uri,
-      final dynamic popResult}) = _$_PoppedResult;
-  const _PoppedResult._() : super._();
+      final dynamic popResult}) = _$PoppedResultRouteImpl;
+  const PoppedResultRoute._() : super._();
 
   BRoute get route;
   Uri get uri;
   dynamic get popResult;
   @JsonKey(ignore: true)
-  _$$_PoppedResultCopyWith<_$_PoppedResult> get copyWith =>
+  _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
