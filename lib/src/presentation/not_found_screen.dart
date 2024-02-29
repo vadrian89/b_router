@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// This screen is shown when the router's state is [RootRouterState.unkown] and
 /// when the Uri path contains [RootRouterState.notFoundPath].
 class NotFoundScreen extends StatelessWidget {
-  const NotFoundScreen({Key? key}) : super(key: key);
+  const NotFoundScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

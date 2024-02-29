@@ -22,12 +22,11 @@ class BRouterProvider extends StatefulWidget {
   final Widget child;
 
   const BRouterProvider({
-    Key? key,
+    super.key,
     this.bloc,
     this.routes,
     required this.child,
-  })  : assert(bloc != null || routes != null),
-        super(key: key);
+  }) : assert(bloc != null || routes != null);
 
   @override
   State<BRouterProvider> createState() => _BRouterProviderState();
