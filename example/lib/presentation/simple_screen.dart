@@ -5,10 +5,10 @@ class SimpleScreen extends StatelessWidget {
   final void Function(BuildContext context) onButtonPressed;
 
   const SimpleScreen({
-    Key? key,
+    super.key,
     required this.screenNumber,
     required this.onButtonPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Scaffold(

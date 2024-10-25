@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ThirdScreen extends StatelessWidget {
   final String text;
-  const ThirdScreen({Key? key, required this.text}) : super(key: key);
+  const ThirdScreen({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) => Scaffold(

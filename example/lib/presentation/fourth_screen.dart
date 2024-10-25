@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FourthScreen extends StatelessWidget {
   final String text;
 
-  const FourthScreen({Key? key, required this.text}) : super(key: key);
+  const FourthScreen({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) => Scaffold(

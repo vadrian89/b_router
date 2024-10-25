@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MainScreen extends StatelessWidget {
   final void Function(BuildContext context)? onPressed;
 
-  const MainScreen({Key? key, this.onPressed}) : super(key: key);
+  const MainScreen({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) => Scaffold(

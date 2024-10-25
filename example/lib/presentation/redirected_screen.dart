@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class RedirectedScreen extends StatelessWidget {
   final String text;
-  const RedirectedScreen({Key? key, required this.text}) : super(key: key);
+  const RedirectedScreen({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) => Scaffold(

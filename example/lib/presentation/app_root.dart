@@ -9,7 +9,7 @@ import 'redirected_screen.dart';
 import 'third_screen.dart';
 
 class AppRoot extends StatefulWidget {
-  const AppRoot({Key? key}) : super(key: key);
+  const AppRoot({super.key});
 
   @override
   State<AppRoot> createState() => _AppRootState();
