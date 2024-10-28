@@ -75,7 +75,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
     final didPop = route.didPop(result);
     AppLogger().d("didPop: $didPop");
     if (!didPop) return false;
-    return _bloc.pop(route: route, result: result);
+    return _bloc.pop(result);
   }
 
   /// Set a new path based on the one reported by the system, by calling [BRouterCubit.setNewRoutePath].

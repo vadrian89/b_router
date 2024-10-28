@@ -116,25 +116,18 @@ class BRouterCubit extends Cubit<BRouterState> {
   ///
   /// If the current state is [BRouterState.unknown], it will call [goToRoot]. This is to prevent
   /// any issues that might arise from popping a route when the state is unknown.
-  bool pop({required Route<dynamic> route, Object? result}) {
+  bool pop(Object? result) {
     _logger.d("Popping route.");
     if (state case UnknownRoute()) {
       goToRoot();
       return true;
     }
-    final foundRoute = _pushedRoutes.firstWhereOrNull(
-      (element) {
-        _logger.d("Verified route: ${element.name}");
-        _logger.d("Popped route name: ${route.settings.name}");
-        return element.name == route.settings.name;
-      },
-    );
-    _logger.d("Found route: $foundRoute");
-    _pushedRoutes = _pushedRoutes.where((element) => element != foundRoute).toList();
-    if ((foundRoute != null) && (result != null)) {
+    _logger.d("Popped route: $topRoute");
+    if ((result != null)) {
       _logger.d("Popping route with result: $result");
-      emit(BRouterState.poppedResult(route: foundRoute, uri: state.uri, popResult: result));
+      emit(BRouterState.poppedResult(route: topRoute, uri: state.uri, popResult: result));
     }
+    _pushedRoutes = _pushedRoutes.where((element) => element != topRoute).toList();
     _showFound();
     return true;
   }
