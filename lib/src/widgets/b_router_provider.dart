@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'package:b_router/bloc.dart';
-import '../../router/b_route.dart';
+import '../router/b_route.dart';
 
 /// The provider used to initialise [BRouterCubit] and set up the provided [routes].
 ///
