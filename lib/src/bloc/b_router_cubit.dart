@@ -111,10 +111,19 @@ class BRouterCubit extends Cubit<BRouterState> {
     _showFound();
   }
 
-  /// Emit [PoppedResultRoute] using the top-most route and the [result].
-  void emitPoppedResult(dynamic result) {
-    _logger.d("Popping route with result: $result");
-    emit(BRouterState.poppedResult(route: topRoute, uri: state.uri, popResult: result));
+  /// Implement the logic for what happens when the top route was popped.
+  ///
+  /// If the current state is [BRouterState.unknown], it will call [goToRoot]. This is to prevent
+  /// any issues that might arise from popping a route when the state is unknown.
+  void pop({required BRoute route, Object? result}) {
+    _logger.d("Popping route.");
+    if (state case UnknownRoute()) return goToRoot();
+    _pushedRoutes = _pushedRoutes.where((element) => element != route).toList();
+    if (result != null) {
+      _logger.d("Popping route with result: $result");
+      emit(BRouterState.poppedResult(route: route, uri: state.uri, popResult: result));
+    }
+    _showFound();
   }
 
   /// Go to the root of the app.

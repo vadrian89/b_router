@@ -23,7 +23,7 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
   /// Callback when a page is popped.
   ///
   /// Passed to [MaterialPage.onPopInvoked].
-  final PopInvokedWithResultCallback<Object?> onPopInvoked;
+  final RoutePopInvokedCallback<Object?> onPopInvoked;
 
   const PageListBuilder({
     required this.context,
@@ -54,7 +54,7 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
           var page = pageBuilder?.call(context, route);
           page ??= DefaultPageBuilder(
             name: route.name,
-            onPopInvoked: onPopInvoked,
+            onPopInvoked: (didPop, result) => didPop ? onPopInvoked(route, result) : null,
             builder: (context) => route.builder(
               context,
               route.arguments,
@@ -73,7 +73,7 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
     var page = pageBuilder?.call(context, route);
     page ??= DefaultPageBuilder(
       name: route.name,
-      onPopInvoked: onPopInvoked,
+      onPopInvoked: (didPop, result) => didPop ? onPopInvoked(route, result) : null,
       builder: (context) => routes.first.builder(
         context,
         route.arguments,

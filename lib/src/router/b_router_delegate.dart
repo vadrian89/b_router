@@ -32,6 +32,9 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// {@macro PageBuilder}
   final PageBuilder? pageBuilder;
 
+  /// Callback used for [Navigator.onDidRemovePage].
+  final DidRemovePageCallback? onDidRemovePage;
+
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
   NavigatorState? get _navigatorState => navigatorKey!.currentState;
@@ -45,6 +48,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
     this.errorBuilder,
     this.redirect,
     this.pageBuilder,
+    this.onDidRemovePage,
   })  : _navigatorKey = navigatorKey,
         _bloc = bloc;
 
@@ -59,10 +63,9 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
             redirect: redirect,
             errorChildBuilder: errorBuilder,
             pageBuilder: pageBuilder,
-            onPopInvoked: (didPop, result) =>
-                (didPop && (result != null)) ? _bloc.emitPoppedResult(result) : null,
+            onPopInvoked: (route, result) => _bloc.pop(route: route, result: result),
           ).build(),
-          onDidRemovePage: _bloc.remove,
+          onDidRemovePage: onDidRemovePage ?? (page) {},
         ),
       );
 

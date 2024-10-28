@@ -29,3 +29,19 @@ typedef PageBuilder = Page<Object?> Function(BuildContext context, BRoute route)
 /// Read more at [popRoute].
 /// {@endtemplate}
 typedef StayOpenedCallback = FutureOr<bool?> Function(BuildContext context);
+
+/// {@template PageChildBuilder}
+/// Builds the widget which will be used inside the [Page].
+///
+/// [arguments] are the arguments passed to the route. These are also available
+/// from [Page.arguments] field.
+/// [uri] is the current uri of the route.
+/// {@endtemplate}
+typedef PageChildBuilder = Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri);
+
+/// {@template PagePopInvokedCallback}
+/// Called when a page is popped.
+///
+/// This is so we know which [route] was popped and what was the [result] of the pop.
+/// {@endtemplate}
+typedef RoutePopInvokedCallback<T> = void Function(BRoute route, T result);
