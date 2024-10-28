@@ -1,32 +1,17 @@
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
+def properties = new Properties()
+file("../local.properties").withInputStream { properties.load(it) }
+def flutterVersionName = properties.getProperty("flutter.versionName")
+def flutterVersionCode = properties.getProperty("flutter.versionCode").toInteger()
+def flutterTargetSdk = properties.getProperty("flutter.flutterTargetSdkVersion").toInteger()
+def flutterMinSdk = properties.getProperty("flutter.flutterMinSdkVersion").toInteger()
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion flutterTargetSdk.toInteger()
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -47,9 +32,9 @@ android {
         applicationId "com.example.example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
+        minSdkVersion flutterMinSdk
+        targetSdkVersion flutterTargetSdk
+        versionCode flutterVersionCode
         versionName flutterVersionName
     }
 
@@ -64,8 +49,4 @@ android {
 
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
