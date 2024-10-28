@@ -15,28 +15,20 @@ class DefaultPageBuilder implements ObjectBuilder<Page<Object?>> {
   /// Passed to [MaterialPage.child].
   final WidgetBuilder builder;
 
-  /// Callback when the page is popped.
-  ///
-  /// Passed to [MaterialPage.onPopInvoked].
-  final PopInvokedWithResultCallback<Object?> onPopInvoked;
-
   const DefaultPageBuilder({
     required this.name,
     required this.builder,
-    required this.onPopInvoked,
   });
 
   factory DefaultPageBuilder.notFound({WidgetBuilder? builder}) => DefaultPageBuilder(
         name: "not_found",
         builder: builder ?? (context) => const NotFoundScreen(),
-        onPopInvoked: (didPop, result) {},
       );
 
   @override
   Page<Object?> build() => MaterialPage(
         key: ValueKey<String>("${name}_page"),
         name: name,
-        onPopInvoked: onPopInvoked,
         child: Builder(builder: builder),
       );
 }

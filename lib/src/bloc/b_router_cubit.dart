@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
@@ -115,15 +116,22 @@ class BRouterCubit extends Cubit<BRouterState> {
   ///
   /// If the current state is [BRouterState.unknown], it will call [goToRoot]. This is to prevent
   /// any issues that might arise from popping a route when the state is unknown.
-  void pop({required BRoute route, Object? result}) {
+  bool pop({required Route<dynamic> route, Object? result}) {
     _logger.d("Popping route.");
-    if (state case UnknownRoute()) return goToRoot();
-    _pushedRoutes = _pushedRoutes.where((element) => element != route).toList();
-    if (result != null) {
+    if (state case UnknownRoute()) {
+      goToRoot();
+      return true;
+    }
+    final foundRoute = _pushedRoutes.firstWhereOrNull(
+      (element) => element.name == route.settings.name,
+    );
+    _pushedRoutes = _pushedRoutes.where((element) => element != foundRoute).toList();
+    if ((foundRoute != null) && (result != null)) {
       _logger.d("Popping route with result: $result");
-      emit(BRouterState.poppedResult(route: route, uri: state.uri, popResult: result));
+      emit(BRouterState.poppedResult(route: foundRoute, uri: state.uri, popResult: result));
     }
     _showFound();
+    return true;
   }
 
   /// Go to the root of the app.

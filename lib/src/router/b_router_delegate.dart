@@ -32,9 +32,6 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// {@macro PageBuilder}
   final PageBuilder? pageBuilder;
 
-  /// Callback used for [Navigator.onDidRemovePage].
-  final DidRemovePageCallback? onDidRemovePage;
-
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
   NavigatorState? get _navigatorState => navigatorKey!.currentState;
@@ -48,7 +45,6 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
     this.errorBuilder,
     this.redirect,
     this.pageBuilder,
-    this.onDidRemovePage,
   })  : _navigatorKey = navigatorKey,
         _bloc = bloc;
 
@@ -57,17 +53,27 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
         listener: (context, state) => notifyListeners(),
         child: Navigator(
           key: navigatorKey,
+          onPopPage: _onPopPageParser,
           pages: PageListBuilder(
             context: context,
             currentState: currentConfiguration,
             redirect: redirect,
             errorChildBuilder: errorBuilder,
             pageBuilder: pageBuilder,
-            onPopInvoked: (route, result) => _bloc.pop(route: route, result: result),
           ).build(),
-          onDidRemovePage: onDidRemovePage ?? (page) {},
         ),
       );
+
+  /// Manage popped [Page]s.
+  ///
+  /// To manage the navigation stack we call [BRouterCubit.popRoute] and handle any [result]
+  /// returned from the page.
+  ///
+  /// For more see [Navigator.onPopPage].
+  bool _onPopPageParser(Route<dynamic> route, dynamic result) {
+    if (!route.didPop(result)) return false;
+    return _bloc.pop(route: route, result: result);
+  }
 
   /// Set a new path based on the one reported by the system, by calling [BRouterCubit.setNewRoutePath].
   ///
@@ -107,8 +113,6 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// If [stayOpened] is set and returns `null`, it will be replaced with a `true` value.
   /// `false`, means the entire app will be popped, that's why a `true` value will keep the app
   /// opened. For more info see [RouterDelegate.popRoute].
-  ///
-  /// TODO; Fix app closing. Because this way no longer prevents app from closing.
   ///
   /// [Page.canPop] needs to be set false for the root page, in order to prevent the app
   /// from closing.
