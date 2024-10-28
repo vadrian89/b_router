@@ -2,7 +2,6 @@ import 'package:b_router/b_router.dart';
 import 'package:b_router/src/interfaces/builder.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/typedefs.dart';
 import 'default_page_builder.dart';
 
 class PageListBuilder implements ObjectBuilder<List<Page>> {
