@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
 
@@ -96,49 +97,33 @@ class BRouterCubit extends Cubit<BRouterState> {
     );
   }
 
-  /// Implement the logic for what happens when the back button was called.
+  /// Remove the [Page] from the navigation stack.
   ///
-  /// Return `true` if the app navigated back or `false` if it's the root of the app.
-  /// The value of the [result] argument is the value returned by the [Route].
-  bool popRoute(dynamic result) {
-    _logger.d("Popping route.");
-    return state.maybeWhen(
-      unknown: goToRoot,
-      routesFound: (routes) {
-        if (result != null) {
-          final route = routes.last;
-          _logger.w("Route '${route.path}' returned the following result: $result");
-          emit(BRouterState.poppedResult(
-            route: route,
-            uri: state.uri,
-            popResult: result,
-          ));
-        }
-        if (routes.length == 1) {
-          _logger.w("Pop route was called at root!");
-          return false;
-        }
-        _pushedRoutes = List.generate(_pushedRoutes.length - 1, (index) => _pushedRoutes[index]);
-        if (routes.length > 1) {
-          _showFound();
-          return true;
-        }
-        return goToRoot();
-      },
-      orElse: () => false,
-    );
+  /// This method will remove the page with the given [name] from the navigation stack.
+  /// If a custom page builder is used, be sure to set the name of the page same as the
+  /// route's name. Otherwise, the page will not be removed when a pop is event happens.
+  ///
+  /// If the route is not found, nothing will happen. This is due to the fact, that changing the
+  /// current list of routes will trigger this method again, which will result an empty routes list.
+  void remove(Page<Object?> page) {
+    if (state case UnknownRoute()) return;
+    _pushedRoutes = _pushedRoutes.where((element) => page.name != element.name).toList();
+    _showFound();
   }
 
-  void _showFound() => emit(BRouterState.routesFound(routes: _pushedRoutes));
+  /// Emit [PoppedResultRoute] using the top-most route and the [result].
+  void emitPoppedResult(dynamic result) {
+    _logger.d("Popping route with result: $result");
+    emit(BRouterState.poppedResult(route: topRoute, uri: state.uri, popResult: result));
+  }
 
   /// Go to the root of the app.
   ///
   /// Recommended to be used whenever you want to go the root of the app.
-  bool goToRoot() {
+  void goToRoot() {
     _logger.d("goToRoot was called.");
     _pushedRoutes = List.from([BRoute.rootRoute(allRoutes)]);
     _showFound();
-    return true;
   }
 
   /// Method called by the overriden [BRouterDelegate.setNewRoutePath] method.
@@ -150,12 +135,15 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// Because we need to use futures, we cannot return a synchronous value.
   void setNewRoutePath(BRouterState parsedState) {
     _logger.d("setNewRoutePath was called for state: $parsedState");
-    parsedState.whenOrNull(
-      initial: goToRoot,
-      routesFound: _setNewRoutes,
-      unknown: () => emit(const BRouterState.unknown()),
-    );
+    return switch (parsedState) {
+      InitialRoute() => goToRoot(),
+      FoundRoutes(:final routes) => _setNewRoutes(routes),
+      UnknownRoute() => emit(const BRouterState.unknown()),
+      _ => null,
+    };
   }
+
+  void _showFound() => emit(BRouterState.routesFound(routes: _pushedRoutes));
 
   void _setNewRoutes(List<BRoute> list) {
     _pushedRoutes = List.from(list);

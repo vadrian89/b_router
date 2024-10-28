@@ -6,7 +6,7 @@ sealed class BRouterState with _$BRouterState {
   static const rootPath = "/";
 
   /// 404 - page not found state
-  static const notFoundPath = "404";
+  static const notFoundPath = "/404";
 
   /// Define the private constructor to enable support for class methods and properties.
   const BRouterState._();

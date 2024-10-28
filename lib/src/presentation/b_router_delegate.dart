@@ -4,6 +4,9 @@ import 'package:b_router/b_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/typedefs.dart';
+import 'pages/page_list_builder.dart';
+
 /// The root delegate of the app.
 ///
 /// Used as value for [MaterialApp.router.routerDelegate].
@@ -16,33 +19,23 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   final GlobalKey<NavigatorState> _navigatorKey;
   final BRouterCubit _bloc;
 
-  /// If set, it will be called when the user presses the back button.
-  ///
-  /// A value of `true` will keep the application opened while `false` will close it.
-  ///
-  /// Read more at [popRoute].
-  final FutureOr<bool?> Function(BuildContext context)? stayOpened;
+  /// {@macro StayOpenedCallback}
+  final StayOpenedCallback? stayOpened;
 
   /// Build the widget used when navigation errors occur.
   ///
   /// By default it will use [NotFoundScreen].
-  final Widget Function(BuildContext context)? errorBuilder;
+  final WidgetBuilder? errorBuilder;
 
-  final String? Function(BuildContext context, BRouterState state)? redirect;
+  /// {@macro RedirectPathBuilder}
+  final RedirectPathBuilder? redirect;
 
-  /// Custom page builder.
-  ///
-  /// If set, it will be used to build the page instead of the default one.
-  /// This is because the default page builder builds a [MaterialPage] with a standard key.
-  ///
-  /// This method brings more flexibility to the developer.
-  final Page Function(BuildContext context, BRoute route)? pageBuilder;
-
-  NavigatorState? get _navigatorState => navigatorKey!.currentState;
+  /// {@macro PageBuilder}
+  final PageBuilder? pageBuilder;
 
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
-
+  NavigatorState? get _navigatorState => navigatorKey!.currentState;
   @override
   BRouterState get currentConfiguration => _bloc.state;
 
@@ -58,61 +51,20 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
 
   @override
   Widget build(BuildContext context) => BRouterListener(
-        listener: (_, __) => notifyListeners(),
+        listener: (context, state) => notifyListeners(),
         child: Navigator(
           key: navigatorKey,
-          pages: _pagesFromState(context),
-          onPopPage: _onPopPageParser,
+          pages: PageListBuilder(
+            context: context,
+            currentState: currentConfiguration,
+            redirect: redirect,
+            errorChildBuilder: errorBuilder,
+            pageBuilder: pageBuilder,
+            onPopInvoked: (didPop, result) =>
+                (didPop && (result != null)) ? _bloc.emitPoppedResult(result) : null,
+          ).build(),
+          onDidRemovePage: _bloc.remove,
         ),
-      );
-
-  List<Page> _pagesFromState(BuildContext context) => currentConfiguration.maybeWhen(
-        orElse: () => [],
-        routesFound: (routes) {
-          final path = (redirect != null) ? redirect!(context, currentConfiguration) : null;
-          if (path?.isNotEmpty ?? false) {
-            final route = routes.firstWhere(
-              (element) => element.path == path,
-              orElse: () => routes.first,
-            );
-            return [
-              pageBuilder?.call(context, route) ??
-                  _page(
-                    valueKey: "${route.name}_page",
-                    child: Builder(
-                      builder: (context) => routes.first.builder(
-                        context,
-                        route.arguments,
-                        currentConfiguration.uri,
-                      ),
-                    ),
-                  ),
-            ];
-          }
-          return List.generate(
-            routes.length,
-            (index) =>
-                pageBuilder?.call(context, routes[index]) ??
-                _page(
-                  valueKey: "${routes[index].name}_page",
-                  child: Builder(
-                    builder: (context) => routes[index].builder(
-                      context,
-                      routes[index].arguments,
-                      currentConfiguration.uri,
-                    ),
-                  ),
-                ),
-          );
-        },
-        unknown: () => [
-          _page(
-            valueKey: "not_found_page",
-            child: Builder(
-              builder: (errorBuilder != null) ? errorBuilder! : (context) => const NotFoundScreen(),
-            ),
-          ),
-        ],
       );
 
   /// Set a new path based on the one reported by the system, by calling [BRouterCubit.setNewRoutePath].
@@ -127,22 +79,8 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
         _bloc.setNewRoutePath(configuration),
       );
 
-  /// Manage popped [Page]s.
-  ///
-  /// To manage the navigation stack we call [BRouterCubit.popRoute] and handle any [result]
-  /// returned from the page.
-  ///
-  /// For more see [Navigator.onPopPage].
-  bool _onPopPageParser(Route<dynamic> route, dynamic result) {
-    if (!route.didPop(result)) return false;
-    return _bloc.popRoute(result);
-  }
-
   /// Called by the [Router] when the [Router.backButtonDispatcher] reports that
   /// the operating system is requesting that the current route be popped.
-  ///
-  /// Since poped pages can be managed from [Navigator.onPopPage], here we only handle any
-  /// non-[Page]s, such as dialogs, bottom sheets, etc.
   ///
   /// Closing the app can be prevented with the help of [stayOpened].
   /// Exit confirmation example:
@@ -167,6 +105,11 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// If [stayOpened] is set and returns `null`, it will be replaced with a `true` value.
   /// `false`, means the entire app will be popped, that's why a `true` value will keep the app
   /// opened. For more info see [RouterDelegate.popRoute].
+  ///
+  /// TODO; Fix app closing. Because this way no longer prevents app from closing.
+  ///
+  /// [Page.canPop] needs to be set false for the root page, in order to prevent the app
+  /// from closing.
   @override
   Future<bool> popRoute() async {
     if (_navigatorState?.canPop() ?? false) {
@@ -176,14 +119,4 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
         ? (await stayOpened!(navigatorKey!.currentContext!) ?? true)
         : false;
   }
-
-  /// Build a [Page] (screens) to use in [Navigator.pages] list.
-  Page _page({
-    required String valueKey,
-    required Widget child,
-  }) =>
-      MaterialPage(
-        key: ValueKey<String>(valueKey),
-        child: child,
-      );
 }
