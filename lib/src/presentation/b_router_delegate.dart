@@ -4,7 +4,7 @@ import 'package:b_router/b_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/typedefs.dart';
+import '../core/typedefs.dart';
 import 'pages/page_list_builder.dart';
 
 /// The root delegate of the app.
