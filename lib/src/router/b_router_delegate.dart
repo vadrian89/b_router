@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:b_router/b_router.dart';
+import 'package:b_router/src/core/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,9 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   ///
   /// For more see [Navigator.onPopPage].
   bool _onPopPageParser(Route<dynamic> route, dynamic result) {
-    if (!route.didPop(result)) return false;
+    final didPop = route.didPop(result);
+    AppLogger().d("didPop: $didPop");
+    if (!didPop) return false;
     return _bloc.pop(route: route, result: result);
   }
 

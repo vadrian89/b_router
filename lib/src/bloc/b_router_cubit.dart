@@ -2,18 +2,19 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:logger/logger.dart';
 
+import '../core/logger.dart';
 import '../router/b_route.dart';
 
-part 'b_router_state.dart';
 part 'b_router_cubit.freezed.dart';
+part 'b_router_state.dart';
 
 /// Bloc used to manage the router.
 class BRouterCubit extends Cubit<BRouterState> {
-  final Logger _logger;
   final List<BRoute> _allRoutes;
   List<BRoute> _pushedRoutes = const [];
+
+  AppLogger get _logger => AppLogger();
 
   /// Get a list of the all routes for this router.
   List<BRoute> get allRoutes => List.from(_allRoutes);
@@ -25,8 +26,7 @@ class BRouterCubit extends Cubit<BRouterState> {
   BRoute get topRoute => pushedRoutes.last;
 
   BRouterCubit({required List<BRoute> routes})
-      : _logger = Logger(),
-        _allRoutes = List.from(routes),
+      : _allRoutes = List.from(routes),
         super(const BRouterState.initial());
 
   /// Push a new page to the navigation stack.
@@ -170,11 +170,5 @@ class BRouterCubit extends Cubit<BRouterState> {
   void _setNewRoutes(List<BRoute> list) {
     _pushedRoutes = List.from(list);
     _showFound();
-  }
-
-  @override
-  Future<void> close() {
-    _logger.close();
-    return super.close();
   }
 }
