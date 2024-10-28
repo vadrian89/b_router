@@ -123,8 +123,13 @@ class BRouterCubit extends Cubit<BRouterState> {
       return true;
     }
     final foundRoute = _pushedRoutes.firstWhereOrNull(
-      (element) => element.name == route.settings.name,
+      (element) {
+        _logger.d("Verified route: ${element.name}");
+        _logger.d("Popped route name: ${route.settings.name}");
+        return element.name == route.settings.name;
+      },
     );
+    _logger.d("Found route: $foundRoute");
     _pushedRoutes = _pushedRoutes.where((element) => element != foundRoute).toList();
     if ((foundRoute != null) && (result != null)) {
       _logger.d("Popping route with result: $result");
