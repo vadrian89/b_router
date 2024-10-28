@@ -85,6 +85,9 @@ class _$BRouterStateCopyWithImpl<$Res, $Val extends BRouterState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -101,6 +104,9 @@ class __$$InitialRouteImplCopyWithImpl<$Res>
   __$$InitialRouteImplCopyWithImpl(
       _$InitialRouteImpl _value, $Res Function(_$InitialRouteImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -220,6 +226,8 @@ class __$$FoundRoutesImplCopyWithImpl<$Res>
       _$FoundRoutesImpl _value, $Res Function(_$FoundRoutesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -266,7 +274,9 @@ class _$FoundRoutesImpl extends FoundRoutes {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_routes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
@@ -354,7 +364,10 @@ abstract class FoundRoutes extends BRouterState {
   const FoundRoutes._() : super._();
 
   List<BRoute> get routes;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -373,6 +386,9 @@ class __$$UnknownRouteImplCopyWithImpl<$Res>
   __$$UnknownRouteImplCopyWithImpl(
       _$UnknownRouteImpl _value, $Res Function(_$UnknownRouteImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -492,6 +508,8 @@ class __$$PoppedResultRouteImplCopyWithImpl<$Res>
       $Res Function(_$PoppedResultRouteImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -549,7 +567,9 @@ class _$PoppedResultRouteImpl extends PoppedResultRoute {
   int get hashCode => Object.hash(
       runtimeType, route, uri, const DeepCollectionEquality().hash(popResult));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
@@ -642,7 +662,10 @@ abstract class PoppedResultRoute extends BRouterState {
   BRoute get route;
   Uri get uri;
   dynamic get popResult;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

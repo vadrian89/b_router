@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
 
-import '../../presentation/b_route.dart';
+import '../presentation/b_route.dart';
 
 part 'b_router_state.dart';
 part 'b_router_cubit.freezed.dart';

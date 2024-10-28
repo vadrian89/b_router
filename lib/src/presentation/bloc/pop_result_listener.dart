@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/b_router/b_router_cubit.dart';
+import '../../bloc/b_router_cubit.dart';
 
 /// Use this widget to listen when you need to get the result from a screen/dialog which has a
 /// return value.

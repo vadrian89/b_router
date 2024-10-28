@@ -1,8 +1,7 @@
 library b_router;
 
 export 'core.dart';
-
-export 'src/application/b_router_bloc.dart';
+export 'bloc.dart';
 
 export 'src/presentation/b_route.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/b_router/b_router_cubit.dart';
+import '../../bloc/b_router_cubit.dart';
 
 /// Shorthand widget for BlocListener<BRouterCubit, BRouterState>.
 class BRouterListener extends StatelessWidget {

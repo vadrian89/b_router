@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../application/b_router_bloc.dart';
+import 'package:b_router/bloc.dart';
 import 'b_route.dart';
 
 extension BRouterContextExtensions on BuildContext {
