@@ -2,3 +2,4 @@
 library core;
 
 export 'src/core/typedefs.dart';
+export 'src/core/extensions.dart';
