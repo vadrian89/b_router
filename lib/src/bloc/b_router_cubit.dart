@@ -118,7 +118,12 @@ class BRouterCubit extends Cubit<BRouterState> {
   void pop({required BRoute route, Object? result}) {
     _logger.d("Popping route.");
     if (state case UnknownRoute()) return goToRoot();
-    _pushedRoutes = _pushedRoutes.where((element) => element != route).toList();
+    final pushedRoutes = _pushedRoutes.where((element) => element != route).toList();
+    if (pushedRoutes.isEmpty) {
+      _logger.w("Cannot pop the root route.");
+      return goToRoot();
+    }
+    _pushedRoutes = List.from(pushedRoutes);
     if (result != null) {
       _logger.d("Popping route with result: $result");
       emit(BRouterState.poppedResult(route: route, uri: state.uri, popResult: result));
