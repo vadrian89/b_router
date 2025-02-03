@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'package:b_router/bloc.dart';
 import '../router/b_route.dart';
@@ -36,7 +37,7 @@ class _BRouterProviderState extends State<BRouterProvider> {
   @override
   void initState() {
     super.initState();
-    setPathUrlStrategy();
+    if (kIsWeb) usePathUrlStrategy();
   }
 
   @override

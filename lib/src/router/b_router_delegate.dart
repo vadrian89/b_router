@@ -109,6 +109,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// opened. For more info see [RouterDelegate.popRoute].
   ///
   /// TODO; Fix app closing. Because this way no longer prevents app from closing.
+  /// Look into [PopScope] for possible solution.
   ///
   /// [Page.canPop] needs to be set false for the root page, in order to prevent the app
   /// from closing.
