@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,186 +9,45 @@ part of 'b_router_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$BRouterState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<BRoute> routes) routesFound,
-    required TResult Function() unknown,
-    required TResult Function(BRoute route, Uri uri, dynamic popResult)
-        poppedResult,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<BRoute> routes)? routesFound,
-    TResult? Function()? unknown,
-    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<BRoute> routes)? routesFound,
-    TResult Function()? unknown,
-    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialRoute value) initial,
-    required TResult Function(FoundRoutes value) routesFound,
-    required TResult Function(UnknownRoute value) unknown,
-    required TResult Function(PoppedResultRoute value) poppedResult,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialRoute value)? initial,
-    TResult? Function(FoundRoutes value)? routesFound,
-    TResult? Function(UnknownRoute value)? unknown,
-    TResult? Function(PoppedResultRoute value)? poppedResult,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialRoute value)? initial,
-    TResult Function(FoundRoutes value)? routesFound,
-    TResult Function(UnknownRoute value)? unknown,
-    TResult Function(PoppedResultRoute value)? poppedResult,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BRouterStateCopyWith<$Res> {
-  factory $BRouterStateCopyWith(
-          BRouterState value, $Res Function(BRouterState) then) =
-      _$BRouterStateCopyWithImpl<$Res, BRouterState>;
-}
-
-/// @nodoc
-class _$BRouterStateCopyWithImpl<$Res, $Val extends BRouterState>
-    implements $BRouterStateCopyWith<$Res> {
-  _$BRouterStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$InitialRouteImplCopyWith<$Res> {
-  factory _$$InitialRouteImplCopyWith(
-          _$InitialRouteImpl value, $Res Function(_$InitialRouteImpl) then) =
-      __$$InitialRouteImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialRouteImplCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$InitialRouteImpl>
-    implements _$$InitialRouteImplCopyWith<$Res> {
-  __$$InitialRouteImplCopyWithImpl(
-      _$InitialRouteImpl _value, $Res Function(_$InitialRouteImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InitialRouteImpl extends InitialRoute {
-  const _$InitialRouteImpl() : super._();
-
-  @override
-  String toString() {
-    return 'BRouterState.initial()';
-  }
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialRouteImpl);
+        (other.runtimeType == runtimeType && other is BRouterState);
   }
 
   @override
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<BRoute> routes) routesFound,
-    required TResult Function() unknown,
-    required TResult Function(BRoute route, Uri uri, dynamic popResult)
-        poppedResult,
-  }) {
-    return initial();
+  String toString() {
+    return 'BRouterState()';
   }
+}
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<BRoute> routes)? routesFound,
-    TResult? Function()? unknown,
-    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-  }) {
-    return initial?.call();
-  }
+/// @nodoc
+class $BRouterStateCopyWith<$Res> {
+  $BRouterStateCopyWith(BRouterState _, $Res Function(BRouterState) __);
+}
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<BRoute> routes)? routesFound,
-    TResult Function()? unknown,
-    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
+/// Adds pattern-matching-related methods to [BRouterState].
+extension BRouterStatePatterns on BRouterState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialRoute value) initial,
-    required TResult Function(FoundRoutes value) routesFound,
-    required TResult Function(UnknownRoute value) unknown,
-    required TResult Function(PoppedResultRoute value) poppedResult,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialRoute value)? initial,
-    TResult? Function(FoundRoutes value)? routesFound,
-    TResult? Function(UnknownRoute value)? unknown,
-    TResult? Function(PoppedResultRoute value)? poppedResult,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitialRoute value)? initial,
@@ -197,45 +56,277 @@ class _$InitialRouteImpl extends InitialRoute {
     TResult Function(PoppedResultRoute value)? poppedResult,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial(this);
+    final _that = this;
+    switch (_that) {
+      case InitialRoute() when initial != null:
+        return initial(_that);
+      case FoundRoutes() when routesFound != null:
+        return routesFound(_that);
+      case UnknownRoute() when unknown != null:
+        return unknown(_that);
+      case PoppedResultRoute() when poppedResult != null:
+        return poppedResult(_that);
+      case _:
+        return orElse();
     }
-    return orElse();
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialRoute value) initial,
+    required TResult Function(FoundRoutes value) routesFound,
+    required TResult Function(UnknownRoute value) unknown,
+    required TResult Function(PoppedResultRoute value) poppedResult,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case InitialRoute():
+        return initial(_that);
+      case FoundRoutes():
+        return routesFound(_that);
+      case UnknownRoute():
+        return unknown(_that);
+      case PoppedResultRoute():
+        return poppedResult(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitialRoute value)? initial,
+    TResult? Function(FoundRoutes value)? routesFound,
+    TResult? Function(UnknownRoute value)? unknown,
+    TResult? Function(PoppedResultRoute value)? poppedResult,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case InitialRoute() when initial != null:
+        return initial(_that);
+      case FoundRoutes() when routesFound != null:
+        return routesFound(_that);
+      case UnknownRoute() when unknown != null:
+        return unknown(_that);
+      case PoppedResultRoute() when poppedResult != null:
+        return poppedResult(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(List<BRoute> routes)? routesFound,
+    TResult Function()? unknown,
+    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case InitialRoute() when initial != null:
+        return initial();
+      case FoundRoutes() when routesFound != null:
+        return routesFound(_that.routes);
+      case UnknownRoute() when unknown != null:
+        return unknown();
+      case PoppedResultRoute() when poppedResult != null:
+        return poppedResult(_that.route, _that.uri, _that.popResult);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(List<BRoute> routes) routesFound,
+    required TResult Function() unknown,
+    required TResult Function(BRoute route, Uri uri, dynamic popResult)
+        poppedResult,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case InitialRoute():
+        return initial();
+      case FoundRoutes():
+        return routesFound(_that.routes);
+      case UnknownRoute():
+        return unknown();
+      case PoppedResultRoute():
+        return poppedResult(_that.route, _that.uri, _that.popResult);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(List<BRoute> routes)? routesFound,
+    TResult? Function()? unknown,
+    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case InitialRoute() when initial != null:
+        return initial();
+      case FoundRoutes() when routesFound != null:
+        return routesFound(_that.routes);
+      case UnknownRoute() when unknown != null:
+        return unknown();
+      case PoppedResultRoute() when poppedResult != null:
+        return poppedResult(_that.route, _that.uri, _that.popResult);
+      case _:
+        return null;
+    }
   }
 }
 
-abstract class InitialRoute extends BRouterState {
-  const factory InitialRoute() = _$InitialRouteImpl;
-  const InitialRoute._() : super._();
+/// @nodoc
+
+class InitialRoute extends BRouterState {
+  const InitialRoute() : super._();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is InitialRoute);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'BRouterState.initial()';
+  }
 }
 
 /// @nodoc
-abstract class _$$FoundRoutesImplCopyWith<$Res> {
-  factory _$$FoundRoutesImplCopyWith(
-          _$FoundRoutesImpl value, $Res Function(_$FoundRoutesImpl) then) =
-      __$$FoundRoutesImplCopyWithImpl<$Res>;
+
+class FoundRoutes extends BRouterState {
+  const FoundRoutes({required final List<BRoute> routes})
+      : _routes = routes,
+        super._();
+
+  final List<BRoute> _routes;
+  List<BRoute> get routes {
+    if (_routes is EqualUnmodifiableListView) return _routes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_routes);
+  }
+
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $FoundRoutesCopyWith<FoundRoutes> get copyWith =>
+      _$FoundRoutesCopyWithImpl<FoundRoutes>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FoundRoutes &&
+            const DeepCollectionEquality().equals(other._routes, _routes));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_routes));
+
+  @override
+  String toString() {
+    return 'BRouterState.routesFound(routes: $routes)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $FoundRoutesCopyWith<$Res>
+    implements $BRouterStateCopyWith<$Res> {
+  factory $FoundRoutesCopyWith(
+          FoundRoutes value, $Res Function(FoundRoutes) _then) =
+      _$FoundRoutesCopyWithImpl;
   @useResult
   $Res call({List<BRoute> routes});
 }
 
 /// @nodoc
-class __$$FoundRoutesImplCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$FoundRoutesImpl>
-    implements _$$FoundRoutesImplCopyWith<$Res> {
-  __$$FoundRoutesImplCopyWithImpl(
-      _$FoundRoutesImpl _value, $Res Function(_$FoundRoutesImpl) _then)
-      : super(_value, _then);
+class _$FoundRoutesCopyWithImpl<$Res> implements $FoundRoutesCopyWith<$Res> {
+  _$FoundRoutesCopyWithImpl(this._self, this._then);
+
+  final FoundRoutes _self;
+  final $Res Function(FoundRoutes) _then;
 
   /// Create a copy of BRouterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? routes = null,
   }) {
-    return _then(_$FoundRoutesImpl(
+    return _then(FoundRoutes(
       routes: null == routes
-          ? _value._routes
+          ? _self._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<BRoute>,
     ));
@@ -244,320 +335,47 @@ class __$$FoundRoutesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FoundRoutesImpl extends FoundRoutes {
-  const _$FoundRoutesImpl({required final List<BRoute> routes})
-      : _routes = routes,
-        super._();
-
-  final List<BRoute> _routes;
-  @override
-  List<BRoute> get routes {
-    if (_routes is EqualUnmodifiableListView) return _routes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_routes);
-  }
-
-  @override
-  String toString() {
-    return 'BRouterState.routesFound(routes: $routes)';
-  }
+class UnknownRoute extends BRouterState {
+  const UnknownRoute() : super._();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FoundRoutesImpl &&
-            const DeepCollectionEquality().equals(other._routes, _routes));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_routes));
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
-      __$$FoundRoutesImplCopyWithImpl<_$FoundRoutesImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<BRoute> routes) routesFound,
-    required TResult Function() unknown,
-    required TResult Function(BRoute route, Uri uri, dynamic popResult)
-        poppedResult,
-  }) {
-    return routesFound(routes);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<BRoute> routes)? routesFound,
-    TResult? Function()? unknown,
-    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-  }) {
-    return routesFound?.call(routes);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<BRoute> routes)? routesFound,
-    TResult Function()? unknown,
-    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (routesFound != null) {
-      return routesFound(routes);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialRoute value) initial,
-    required TResult Function(FoundRoutes value) routesFound,
-    required TResult Function(UnknownRoute value) unknown,
-    required TResult Function(PoppedResultRoute value) poppedResult,
-  }) {
-    return routesFound(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialRoute value)? initial,
-    TResult? Function(FoundRoutes value)? routesFound,
-    TResult? Function(UnknownRoute value)? unknown,
-    TResult? Function(PoppedResultRoute value)? poppedResult,
-  }) {
-    return routesFound?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialRoute value)? initial,
-    TResult Function(FoundRoutes value)? routesFound,
-    TResult Function(UnknownRoute value)? unknown,
-    TResult Function(PoppedResultRoute value)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (routesFound != null) {
-      return routesFound(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FoundRoutes extends BRouterState {
-  const factory FoundRoutes({required final List<BRoute> routes}) =
-      _$FoundRoutesImpl;
-  const FoundRoutes._() : super._();
-
-  List<BRoute> get routes;
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FoundRoutesImplCopyWith<_$FoundRoutesImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UnknownRouteImplCopyWith<$Res> {
-  factory _$$UnknownRouteImplCopyWith(
-          _$UnknownRouteImpl value, $Res Function(_$UnknownRouteImpl) then) =
-      __$$UnknownRouteImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UnknownRouteImplCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$UnknownRouteImpl>
-    implements _$$UnknownRouteImplCopyWith<$Res> {
-  __$$UnknownRouteImplCopyWithImpl(
-      _$UnknownRouteImpl _value, $Res Function(_$UnknownRouteImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$UnknownRouteImpl extends UnknownRoute {
-  const _$UnknownRouteImpl() : super._();
-
-  @override
-  String toString() {
-    return 'BRouterState.unknown()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UnknownRouteImpl);
+        (other.runtimeType == runtimeType && other is UnknownRoute);
   }
 
   @override
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<BRoute> routes) routesFound,
-    required TResult Function() unknown,
-    required TResult Function(BRoute route, Uri uri, dynamic popResult)
-        poppedResult,
-  }) {
-    return unknown();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<BRoute> routes)? routesFound,
-    TResult? Function()? unknown,
-    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-  }) {
-    return unknown?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<BRoute> routes)? routesFound,
-    TResult Function()? unknown,
-    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (unknown != null) {
-      return unknown();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialRoute value) initial,
-    required TResult Function(FoundRoutes value) routesFound,
-    required TResult Function(UnknownRoute value) unknown,
-    required TResult Function(PoppedResultRoute value) poppedResult,
-  }) {
-    return unknown(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialRoute value)? initial,
-    TResult? Function(FoundRoutes value)? routesFound,
-    TResult? Function(UnknownRoute value)? unknown,
-    TResult? Function(PoppedResultRoute value)? poppedResult,
-  }) {
-    return unknown?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialRoute value)? initial,
-    TResult Function(FoundRoutes value)? routesFound,
-    TResult Function(UnknownRoute value)? unknown,
-    TResult Function(PoppedResultRoute value)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (unknown != null) {
-      return unknown(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UnknownRoute extends BRouterState {
-  const factory UnknownRoute() = _$UnknownRouteImpl;
-  const UnknownRoute._() : super._();
-}
-
-/// @nodoc
-abstract class _$$PoppedResultRouteImplCopyWith<$Res> {
-  factory _$$PoppedResultRouteImplCopyWith(_$PoppedResultRouteImpl value,
-          $Res Function(_$PoppedResultRouteImpl) then) =
-      __$$PoppedResultRouteImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({BRoute route, Uri uri, dynamic popResult});
-}
-
-/// @nodoc
-class __$$PoppedResultRouteImplCopyWithImpl<$Res>
-    extends _$BRouterStateCopyWithImpl<$Res, _$PoppedResultRouteImpl>
-    implements _$$PoppedResultRouteImplCopyWith<$Res> {
-  __$$PoppedResultRouteImplCopyWithImpl(_$PoppedResultRouteImpl _value,
-      $Res Function(_$PoppedResultRouteImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? route = null,
-    Object? uri = null,
-    Object? popResult = freezed,
-  }) {
-    return _then(_$PoppedResultRouteImpl(
-      route: null == route
-          ? _value.route
-          : route // ignore: cast_nullable_to_non_nullable
-              as BRoute,
-      uri: null == uri
-          ? _value.uri
-          : uri // ignore: cast_nullable_to_non_nullable
-              as Uri,
-      popResult: freezed == popResult
-          ? _value.popResult
-          : popResult // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
+  String toString() {
+    return 'BRouterState.unknown()';
   }
 }
 
 /// @nodoc
 
-class _$PoppedResultRouteImpl extends PoppedResultRoute {
-  const _$PoppedResultRouteImpl(
+class PoppedResultRoute extends BRouterState {
+  const PoppedResultRoute(
       {required this.route, required this.uri, this.popResult})
       : super._();
 
-  @override
   final BRoute route;
-  @override
   final Uri uri;
-  @override
   final dynamic popResult;
 
-  @override
-  String toString() {
-    return 'BRouterState.poppedResult(route: $route, uri: $uri, popResult: $popResult)';
-  }
+  /// Create a copy of BRouterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PoppedResultRouteCopyWith<PoppedResultRoute> get copyWith =>
+      _$PoppedResultRouteCopyWithImpl<PoppedResultRoute>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PoppedResultRouteImpl &&
+            other is PoppedResultRoute &&
             (identical(other.route, route) || other.route == route) &&
             (identical(other.uri, uri) || other.uri == uri) &&
             const DeepCollectionEquality().equals(other.popResult, popResult));
@@ -567,105 +385,53 @@ class _$PoppedResultRouteImpl extends PoppedResultRoute {
   int get hashCode => Object.hash(
       runtimeType, route, uri, const DeepCollectionEquality().hash(popResult));
 
+  @override
+  String toString() {
+    return 'BRouterState.poppedResult(route: $route, uri: $uri, popResult: $popResult)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $PoppedResultRouteCopyWith<$Res>
+    implements $BRouterStateCopyWith<$Res> {
+  factory $PoppedResultRouteCopyWith(
+          PoppedResultRoute value, $Res Function(PoppedResultRoute) _then) =
+      _$PoppedResultRouteCopyWithImpl;
+  @useResult
+  $Res call({BRoute route, Uri uri, dynamic popResult});
+}
+
+/// @nodoc
+class _$PoppedResultRouteCopyWithImpl<$Res>
+    implements $PoppedResultRouteCopyWith<$Res> {
+  _$PoppedResultRouteCopyWithImpl(this._self, this._then);
+
+  final PoppedResultRoute _self;
+  final $Res Function(PoppedResultRoute) _then;
+
   /// Create a copy of BRouterState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
   @pragma('vm:prefer-inline')
-  _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
-      __$$PoppedResultRouteImplCopyWithImpl<_$PoppedResultRouteImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<BRoute> routes) routesFound,
-    required TResult Function() unknown,
-    required TResult Function(BRoute route, Uri uri, dynamic popResult)
-        poppedResult,
+  $Res call({
+    Object? route = null,
+    Object? uri = null,
+    Object? popResult = freezed,
   }) {
-    return poppedResult(route, uri, popResult);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<BRoute> routes)? routesFound,
-    TResult? Function()? unknown,
-    TResult? Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-  }) {
-    return poppedResult?.call(route, uri, popResult);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<BRoute> routes)? routesFound,
-    TResult Function()? unknown,
-    TResult Function(BRoute route, Uri uri, dynamic popResult)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (poppedResult != null) {
-      return poppedResult(route, uri, popResult);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialRoute value) initial,
-    required TResult Function(FoundRoutes value) routesFound,
-    required TResult Function(UnknownRoute value) unknown,
-    required TResult Function(PoppedResultRoute value) poppedResult,
-  }) {
-    return poppedResult(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialRoute value)? initial,
-    TResult? Function(FoundRoutes value)? routesFound,
-    TResult? Function(UnknownRoute value)? unknown,
-    TResult? Function(PoppedResultRoute value)? poppedResult,
-  }) {
-    return poppedResult?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialRoute value)? initial,
-    TResult Function(FoundRoutes value)? routesFound,
-    TResult Function(UnknownRoute value)? unknown,
-    TResult Function(PoppedResultRoute value)? poppedResult,
-    required TResult orElse(),
-  }) {
-    if (poppedResult != null) {
-      return poppedResult(this);
-    }
-    return orElse();
+    return _then(PoppedResultRoute(
+      route: null == route
+          ? _self.route
+          : route // ignore: cast_nullable_to_non_nullable
+              as BRoute,
+      uri: null == uri
+          ? _self.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as Uri,
+      popResult: freezed == popResult
+          ? _self.popResult
+          : popResult // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
   }
 }
 
-abstract class PoppedResultRoute extends BRouterState {
-  const factory PoppedResultRoute(
-      {required final BRoute route,
-      required final Uri uri,
-      final dynamic popResult}) = _$PoppedResultRouteImpl;
-  const PoppedResultRoute._() : super._();
-
-  BRoute get route;
-  Uri get uri;
-  dynamic get popResult;
-
-  /// Create a copy of BRouterState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PoppedResultRouteImplCopyWith<_$PoppedResultRouteImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on
