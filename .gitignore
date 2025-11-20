@@ -32,3 +32,4 @@ build/
 # FVM Version Cache
 .fvm/
 example/android/app/.cxx
+example/android/.kotlin
