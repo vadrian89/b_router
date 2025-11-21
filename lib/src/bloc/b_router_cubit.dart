@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
 
 import '../router/b_route.dart';
+import 'helpers.dart';
+
+export 'helpers.dart';
 
 part 'b_router_state.dart';
-part 'b_router_cubit.freezed.dart';
 
 /// Bloc used to manage the router.
 class BRouterCubit extends Cubit<BRouterState> {

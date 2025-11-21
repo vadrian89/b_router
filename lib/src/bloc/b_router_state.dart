@@ -1,7 +1,6 @@
 part of 'b_router_cubit.dart';
 
-@freezed
-sealed class BRouterState with _$BRouterState {
+sealed class BRouterState extends Equatable {
   /// The root path of the app.
   static const rootPath = "/";
 
@@ -9,7 +8,7 @@ sealed class BRouterState with _$BRouterState {
   static const notFoundPath = "/404";
 
   /// Define the private constructor to enable support for class methods and properties.
-  const BRouterState._();
+  const BRouterState();
 
   /// [BRouterState.initial] is the initial state of the app.
   ///
@@ -127,4 +126,58 @@ sealed class BRouterState with _$BRouterState {
     }
     return tmpList;
   }
+}
+
+/// The initial state of the router.
+class InitialRoute extends BRouterState {
+  const InitialRoute();
+
+  @override
+  List<Object> get props => [];
+}
+
+/// The states emitted when there is a valid list of routes found.
+class FoundRoutes extends BRouterState {
+  /// The list of routes found.
+  ///
+  /// These routes represents the current navigation stack, the last being the top route,
+  /// while the first being the root route.
+  final List<BRoute> routes;
+
+  @override
+  List<Object> get props => [routes];
+
+  /// Build a new instance with the given [routes].
+  const FoundRoutes({required this.routes});
+}
+
+/// Called when the requested route is not found.
+class UnknownRoute extends BRouterState {
+  @override
+  List<Object> get props => [];
+
+  const UnknownRoute();
+}
+
+/// Emitted when a screen is popped with a result.
+class PoppedResultRoute extends BRouterState {
+  /// The route which was popped.
+  final BRoute route;
+
+  final Uri _uri;
+
+  /// The current uri when the pop occured.
+  ///
+  /// To not be mistaken with the route's uri, from [BRouterState]. It's mistakenly named.
+  /// TODO; Refactor naming of uri getter.
+  @override
+  Uri get uri => _uri;
+
+  /// The result returned from the popped route.
+  final dynamic popResult;
+
+  @override
+  List<Object?> get props => [route, uri, popResult];
+
+  const PoppedResultRoute({required this.route, required Uri uri, this.popResult}) : _uri = uri;
 }
