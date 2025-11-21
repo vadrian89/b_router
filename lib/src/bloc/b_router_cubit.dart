@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
-import '../router/b_route.dart';
+import '../router/route.dart';
 import 'helpers.dart';
 
 export 'helpers.dart';

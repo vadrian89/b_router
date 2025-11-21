@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:b_router/bloc.dart';
-import '../router/b_route.dart';
+import '../router/route.dart';
 
 extension BRouterContextExtensions on BuildContext {
   /// Get the nearest [BRouterCubit] instance.
