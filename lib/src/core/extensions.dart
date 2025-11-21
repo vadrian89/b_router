@@ -38,5 +38,8 @@ extension BRouterContextExtensions on BuildContext {
       );
 
   /// Get the last route pushed.
-  BRoute? get bTopRoute => bRouter.state.whenOrNull(routesFound: (routes) => routes.last);
+  BRoute? get bTopRoute => switch (bRouter.state) {
+        FoundRoutes(:final routes) => routes.isNotEmpty ? routes.last : null,
+        _ => null,
+      };
 }

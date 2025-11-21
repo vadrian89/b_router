@@ -7,6 +7,16 @@ sealed class BRouterState extends Equatable {
   /// 404 - page not found state
   static const notFoundPath = "/404";
 
+  /// Get the app [Uri] based on the current state.
+  Uri get uri => switch (this) {
+        InitialRoute() => Uri.parse(rootPath),
+        FoundRoutes(:final routes) => Uri(
+            pathSegments: _pathSegments(routes),
+            queryParameters: _params(routes),
+          ),
+        _ => Uri.parse(notFoundPath),
+      };
+
   /// Define the private constructor to enable support for class methods and properties.
   const BRouterState();
 
@@ -94,16 +104,6 @@ sealed class BRouterState extends Equatable {
     /// Finally we return the state.
     return BRouterState.routesFound(routes: List.from(routesList));
   }
-
-  /// Get the app [Uri] based on the current state.
-  Uri get uri => maybeWhen(
-        initial: () => Uri.parse(rootPath),
-        orElse: () => Uri.parse(notFoundPath),
-        routesFound: (routes) => Uri(
-          pathSegments: _pathSegments(routes),
-          queryParameters: _params(routes),
-        ),
-      );
 
   Map<String, String>? _params(List<BRoute> list) {
     Map<String, String> params = Map<String, String>.fromEntries(

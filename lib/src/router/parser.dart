@@ -34,14 +34,13 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
   /// Get the location of the current navigation stack.
   ///
   /// Example: ```/page1/page2/?p=some-parameter```
-  String _location(BRouterState state) => state.maybeWhen(
-        initial: () => BRouterState.rootPath,
-        routesFound: (routes) {
-          final path = _locationFromRoutes(routes);
-          return path.isNotEmpty ? path : BRouterState.rootPath;
-        },
-        orElse: () => BRouterState.notFoundPath,
-      );
+  String _location(BRouterState state) {
+    if (state case FoundRoutes(:final routes)) {
+      final path = _locationFromRoutes(routes);
+      return path.isNotEmpty ? path : BRouterState.rootPath;
+    }
+    return (state is InitialRoute) ? BRouterState.rootPath : BRouterState.notFoundPath;
+  }
 
   String _locationFromRoutes(List<BRoute> list) {
     String path = "";
