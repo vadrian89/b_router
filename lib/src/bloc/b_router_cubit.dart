@@ -1,7 +1,7 @@
+import 'package:b_router/src/utils/route_logger.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logger/logger.dart';
 
 import '../router/route.dart';
 
@@ -11,7 +11,6 @@ part 'b_router_state.dart';
 
 /// Bloc used to manage the router.
 class BRouterCubit extends Cubit<BRouterState> {
-  final Logger _logger;
   final List<BRoute> _allRoutes;
   List<BRoute> _pushedRoutes = const [];
 
@@ -24,9 +23,10 @@ class BRouterCubit extends Cubit<BRouterState> {
   /// Get the top-most pushed route from [pushedRoutes].
   BRoute get topRoute => pushedRoutes.last;
 
+  RouteLogger get _logger => RouteLogger();
+
   BRouterCubit({required List<BRoute> routes})
-      : _logger = Logger(),
-        _allRoutes = List.from(routes),
+      : _allRoutes = List.from(routes),
         super(const BRouterState.initial());
 
   /// Push a new page to the navigation stack.
@@ -163,11 +163,5 @@ class BRouterCubit extends Cubit<BRouterState> {
   void _setNewRoutes(List<BRoute> list) {
     _pushedRoutes = List.from(list);
     _showFound();
-  }
-
-  @override
-  Future<void> close() {
-    _logger.close();
-    return super.close();
   }
 }
