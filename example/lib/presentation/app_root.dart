@@ -44,22 +44,6 @@ class _AppRootState extends State<AppRoot> {
             routerDelegate: BRouterDelegate(
               navigatorKey: _navigatorKey,
               bloc: _bloc,
-              stayOpened: (context) => showDialog<bool?>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: const Text("Close app?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: const Text("No"),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: const Text("Yes"),
-                    ),
-                  ],
-                ),
-              ),
             ),
             routeInformationParser: BRouterParser(routes: _routes),
           ),

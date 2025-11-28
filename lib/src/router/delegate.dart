@@ -18,9 +18,6 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   final GlobalKey<NavigatorState> _navigatorKey;
   final BRouterCubit _bloc;
 
-  /// {@macro StayOpenedCallback}
-  final StayOpenedCallback? stayOpened;
-
   /// Build the widget used when navigation errors occur.
   ///
   /// By default it will use [NotFoundScreen].
@@ -37,14 +34,14 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
 
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
-  NavigatorState? get _navigatorState => navigatorKey!.currentState;
+
+  /// NavigatorState? get _navigatorState => navigatorKey!.currentState;
   @override
   BRouterState get currentConfiguration => _bloc.state;
 
   BRouterDelegate({
     required GlobalKey<NavigatorState> navigatorKey,
     required BRouterCubit bloc,
-    this.stayOpened,
     this.errorBuilder,
     this.redirect,
     this.pageBuilder,
@@ -80,46 +77,4 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   Future<void> setNewRoutePath(BRouterState configuration) => SynchronousFuture(
         _bloc.setNewRoutePath(configuration),
       );
-
-  /// Called by the [Router] when the [Router.backButtonDispatcher] reports that
-  /// the operating system is requesting that the current route be popped.
-  ///
-  /// Closing the app can be prevented with the help of [stayOpened].
-  /// Exit confirmation example:
-  /// ```dart
-  /// showDialog<bool?>(
-  ///   context: context!,
-  ///   builder: (context) => AlertDialog(
-  ///     content: const Text("Close app?"),
-  ///       actions: [
-  ///         TextButton(
-  ///           onPressed: () => Navigator.pop(context, true),
-  ///           child: const Text("No"),
-  ///         ),
-  ///         TextButton(
-  ///           onPressed: () => Navigator.pop(context, false),
-  ///           child: const Text("Yes"),
-  ///         ),
-  ///     ],
-  ///   ),
-  /// )
-  /// ```
-  /// If [stayOpened] is set and returns `null`, it will be replaced with a `true` value.
-  /// `false`, means the entire app will be popped, that's why a `true` value will keep the app
-  /// opened. For more info see [RouterDelegate.popRoute].
-  ///
-  /// TODO; Fix app closing. Because this way no longer prevents app from closing.
-  /// Look into [PopScope] for possible solution.
-  ///
-  /// [Page.canPop] needs to be set false for the root page, in order to prevent the app
-  /// from closing.
-  @override
-  Future<bool> popRoute() async {
-    if (_navigatorState?.canPop() ?? false) {
-      return _navigatorState!.maybePop();
-    }
-    return (stayOpened != null)
-        ? (await stayOpened!(navigatorKey!.currentContext!) ?? true)
-        : false;
-  }
 }
