@@ -1,6 +1,4 @@
-import 'package:b_router/application.dart';
-import 'package:b_router/router.dart';
-import 'package:b_router/src/router/route_event.dart';
+import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
@@ -32,11 +30,15 @@ class BRouter extends StatefulWidget {
   /// provider and back button dispatcher, separately.
   final Widget Function(BuildContext context, RouterConfig<BRouterState> config) builder;
 
+  /// {@macro PageBuilder}
+  final PageBuilder? pageBuilder;
+
   const BRouter({
     super.key,
     required this.routes,
     required this.builder,
     this.notFoundBuilder,
+    this.pageBuilder,
   }) : assert(routes.length > 0, "Routes list cannot be empty");
   @override
   State<BRouter> createState() => _BRouterState();
@@ -63,7 +65,11 @@ class _BRouterState extends State<BRouter> {
         "Router state changed -> FROM: $previous TO: $current",
       ),
     );
-    _delegate = BRouterDelegate(stateNotifier: _stateNotifier, onPopInvoked: _pop);
+    _delegate = BRouterDelegate(
+      stateNotifier: _stateNotifier,
+      onPopInvoked: _pop,
+      pageBuilder: widget.pageBuilder,
+    );
     _parser = BRouterParser(routes: _routes);
     _provider = BRouteInformationProvider(routes: _routes);
     _routerConfig = RouterConfig(

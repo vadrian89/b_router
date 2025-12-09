@@ -1,3 +1,6 @@
+## 0.0.8
+* Added PageBuilder callback to BRouter
+
 ## 0.0.7
 * Added RouteEvent and BRouteStateProvider to the exported classes
 
