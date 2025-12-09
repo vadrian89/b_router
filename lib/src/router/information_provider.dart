@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../bloc.dart';
 import 'route.dart';
 
 /// A [RouteInformationProvider] implemented for this package.
@@ -31,10 +30,7 @@ class BRouteInformationProvider extends RouteInformationProvider
   BRouteInformationProvider({
     String? initialPath,
     required this.routes,
-  }) : _value = RouteInformation(
-          uri: Uri.parse(initialPath ?? "/"),
-          state: const BRouterState.initial(),
-        ) {
+  }) : _value = RouteInformation(uri: Uri.parse(initialPath ?? "")) {
     if (kFlutterMemoryAllocationsEnabled) {
       ChangeNotifier.maybeDispatchObjectCreation(this);
     }
