@@ -1,3 +1,6 @@
+## 0.0.7
+* Added RouteEvent and BRouteStateProvider to the exported classes
+
 ## 0.0.6
 * Added BRouteInformationProvider, which is not currently used.
 * Added BRouterStateNotifier which notifies listeners when the current BRouterState changes
