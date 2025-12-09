@@ -1,3 +1,4 @@
+import 'package:b_router/router.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,4 +54,20 @@ class RedirectRouteEvent extends RouteEvent {
   List<Object?> get props => [location, params];
 
   const RedirectRouteEvent({required this.location, this.params});
+}
+
+/// Event used to pop a specific route from the navigation stack.
+class PopRouteEvent extends RouteEvent {
+  /// The name of the route to pop.
+  ///
+  /// Since the developr should have access to the list of routes, we will leave it as [BRoute].
+  final BRoute route;
+
+  /// The result to return when popping the route.
+  final Object? result;
+
+  @override
+  List<Object?> get props => [route, result];
+
+  const PopRouteEvent({required this.route, this.result});
 }

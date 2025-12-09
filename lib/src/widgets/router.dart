@@ -97,6 +97,7 @@ class _BRouterState extends State<BRouter> {
   void _routeEventReceived(RouteEvent event) => switch (event) {
         PushRouteEvent() => _push(event),
         RedirectRouteEvent() => _redirect(event),
+        PopRouteEvent() => _pop(event.route, event.result),
       };
 
   void _push(PushRouteEvent event) {

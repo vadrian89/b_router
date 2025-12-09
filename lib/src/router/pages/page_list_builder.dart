@@ -36,15 +36,12 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
         routes.length,
         (index) {
           final route = routes[index];
-          var page = pageBuilder?.call(context, route);
+          final uri = currentState.uri;
+          var page = pageBuilder?.call(context, route, uri);
           page ??= DefaultPageBuilder(
             name: route.name,
             onPopInvoked: (didPop, result) => didPop ? onPopInvoked(route, result) : null,
-            builder: (context) => route.builder(
-              context,
-              route.arguments,
-              currentState.uri,
-            ),
+            builder: (context) => route.builder(context, route.arguments, uri),
           ).build();
           return page;
         },

@@ -1,3 +1,9 @@
+## 0.0.9
+* Added PopRouteEvent to handle custom pop events
+* Updated BRouter to handle PopRouteEvent notification
+* Updated PageBuilder to include the uri of the current state and updated implementers
+* Updated example to contain pageBuilder implementation
+
 ## 0.0.8
 * Added PageBuilder callback to BRouter
 

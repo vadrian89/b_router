@@ -3,6 +3,7 @@ import 'package:example/presentation/main_screen.dart';
 import 'package:example/presentation/second_screen.dart';
 import 'package:b_router/b_router.dart';
 import 'package:example/presentation/simple_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'redirected_screen.dart';
@@ -19,6 +20,15 @@ class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) => BRouter(
         routes: _routes,
+        pageBuilder: (context, route, uri) => MaterialPage(
+          key: ValueKey<String>("${route.name}_page"),
+          name: route.name,
+          onPopInvoked: (didPop, result) {
+            if (kDebugMode) print("Page ${route.name} popped with result $result");
+            PopRouteEvent(route: route, result: result).dispatch(context);
+          },
+          child: route.builder(context, route.arguments, uri),
+        ),
         builder: (context, config) => MaterialApp.router(
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSwatch(
