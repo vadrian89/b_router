@@ -1,4 +1,4 @@
-import 'package:b_router/src/application/b_router_cubit.dart';
+import 'package:b_router/application.dart';
 import 'package:flutter/widgets.dart';
 
 /// An inherited widget that provides access to the [BRouterState] through the build context.

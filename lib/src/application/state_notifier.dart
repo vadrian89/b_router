@@ -1,7 +1,6 @@
-import 'package:b_router/bloc.dart';
 import 'package:flutter/foundation.dart';
 
-import 'b_router_cubit.dart' show BRouterState;
+import 'state.dart';
 
 /// A [ValueNotifier] which holds the current [BRouterState].
 ///

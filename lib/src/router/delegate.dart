@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:b_router/b_router.dart';
-import 'package:b_router/src/application/state_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

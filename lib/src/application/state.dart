@@ -1,4 +1,5 @@
-part of 'b_router_cubit.dart';
+import 'package:b_router/router.dart' show BRoute;
+import 'package:equatable/equatable.dart';
 
 sealed class BRouterState extends Equatable {
   /// The root path of the app.

@@ -1,9 +1,8 @@
-import 'package:b_router/bloc.dart';
+import 'package:b_router/application.dart';
 import 'package:b_router/router.dart';
 import 'package:b_router/src/router/route_event.dart';
 import 'package:flutter/material.dart';
 
-import '../application/state_notifier.dart';
 import '../utils/route_logger.dart';
 
 /// The main router widget.

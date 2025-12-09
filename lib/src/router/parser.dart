@@ -1,7 +1,7 @@
+import 'package:b_router/application.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../application/b_router_cubit.dart';
 import 'route.dart';
 
 /// The [RouteInformationParser] implementation for our [MaterialApp.router]

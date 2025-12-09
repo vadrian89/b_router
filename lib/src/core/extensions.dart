@@ -1,7 +1,7 @@
-import 'package:b_router/bloc.dart';
 import 'package:b_router/src/router/route_event.dart';
 import 'package:flutter/material.dart';
 
+import '../application/state.dart';
 import '../router/route.dart';
 import '../widgets/state_provider.dart';
 
