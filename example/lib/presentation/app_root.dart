@@ -16,37 +16,17 @@ class AppRoot extends StatefulWidget {
 }
 
 class _AppRootState extends State<AppRoot> {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  late final BRouterCubit _bloc;
-
   @override
-  void initState() {
-    super.initState();
-    _bloc = BRouterCubit(routes: _routes);
-  }
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => BRouterProvider(
-        bloc: _bloc,
-        child: Builder(
-          builder: (context) => MaterialApp.router(
-            theme: ThemeData.from(
-              colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blue,
-              ).copyWith(secondary: Colors.yellow),
-            ),
-            routerDelegate: BRouterDelegate(
-              navigatorKey: _navigatorKey,
-              bloc: _bloc,
-            ),
-            routeInformationParser: BRouterParser(routes: _routes),
+  Widget build(BuildContext context) => BRouter(
+        routes: _routes,
+        builder: (context, config) => MaterialApp.router(
+          theme: ThemeData.from(
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blue,
+            ).copyWith(secondary: Colors.yellow),
           ),
+          routeInformationParser: config.routeInformationParser,
+          routerDelegate: config.routerDelegate,
         ),
       );
 
