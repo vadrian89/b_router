@@ -2,20 +2,20 @@ import 'package:b_router/application.dart';
 import 'package:flutter/widgets.dart';
 
 /// An inherited widget that provides access to the [BRouterState] through the build context.
-class BRouteStateProvider extends InheritedWidget {
+class BRouterStateProvider extends InheritedWidget {
   /// The current state of the BRouter.
   final BRouterState state;
 
-  const BRouteStateProvider({
+  const BRouterStateProvider({
     super.key,
     required this.state,
     required super.child,
   });
 
-  static BRouteStateProvider? maybeOf(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<BRouteStateProvider>();
+  static BRouterStateProvider? maybeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<BRouterStateProvider>();
 
-  static BRouteStateProvider of(BuildContext context) {
+  static BRouterStateProvider of(BuildContext context) {
     final state = maybeOf(context);
     if (state == null) {
       throw FlutterError(
@@ -26,5 +26,5 @@ class BRouteStateProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(BRouteStateProvider oldWidget) => oldWidget.state != state;
+  bool updateShouldNotify(BRouterStateProvider oldWidget) => oldWidget.state != state;
 }

@@ -6,8 +6,27 @@ import '../router/route.dart';
 import '../widgets/state_provider.dart';
 
 extension BRouterContextExtensions on BuildContext {
+  /// Get the current BRouteStateProvider from the context.
+  BRouterStateProvider get routerStateProvider => BRouterStateProvider.of(this);
+
   /// Get the current [BRouterState] from the context.
-  BRouterState get routerState => BRouteStateProvider.of(this).state;
+  BRouterState get routerState => routerStateProvider.state;
+
+  /// Get the currently pushed routes from the context.
+  ///
+  /// Keep in mind that this will return an empty list if the current state does not contain any
+  /// routes.
+  List<BRoute> get pushedRoutes => switch (routerState) {
+        FoundRoutes(:final routes) => routes,
+        _ => const [],
+      };
+
+  /// Get the last route pushed.
+  ///
+  /// This will return null if there are no routes in the stack.
+  ///
+  /// It's a shorthand for `pushedRoutes.lastOrNull`.
+  BRoute? get topRoute => pushedRoutes.lastOrNull;
 
   /// Redirect to the new [location].
   ///
@@ -27,10 +46,4 @@ extension BRouterContextExtensions on BuildContext {
     Map<String, String>? params,
   }) =>
       PushRouteEvent(name: name, arguments: arguments, params: params).dispatch(this);
-
-  /// Get the last route pushed.
-  BRoute? get bTopRoute => switch (routerState) {
-        FoundRoutes(:final routes) => routes.isNotEmpty ? routes.last : null,
-        _ => null,
-      };
 }

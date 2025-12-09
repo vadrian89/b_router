@@ -5,7 +5,7 @@ import 'state_provider.dart';
 
 /// Listener for changes in the [BRouterState].
 ///
-/// This widget listens for changes notified by the [BRouteStateProvider] and
+/// This widget listens for changes notified by the [BRouterStateProvider] and
 /// invokes the provided [listener] callback whenever the [BRouterState] changes.
 ///
 /// It allows optional filtering of state changes through the [listenWhen] callback,
@@ -46,7 +46,7 @@ class _BRouterListenerState extends State<BRouterListener> {
 
   @override
   void didChangeDependencies() {
-    final state = BRouteStateProvider.of(context).state;
+    final state = BRouterStateProvider.of(context).state;
     final listenWhen = widget.listenWhen?.call(_previousState ?? state, state) ?? true;
     if ((_previousState != state) && listenWhen) widget.listener(context, state);
     _previousState = state;

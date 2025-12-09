@@ -54,7 +54,7 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: stateNotifier,
-        builder: (context, value, child) => BRouteStateProvider(
+        builder: (context, value, child) => BRouterStateProvider(
           state: value,
           child: child!,
         ),

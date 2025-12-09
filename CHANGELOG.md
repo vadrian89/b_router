@@ -1,3 +1,8 @@
+## 0.0.10
+* Renamed BRouteStateProvider to BRouterStateProvider
+* Added BRouterContextExtensions.routerStateProvider getter
+* Added BRouterContextExtensions.pushedRoutes getter
+
 ## 0.0.9
 * Added PopRouteEvent to handle custom pop events
 * Updated BRouter to handle PopRouteEvent notification
