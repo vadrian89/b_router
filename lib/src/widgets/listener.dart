@@ -36,7 +36,7 @@ class BRouterListener extends StatefulWidget {
 
 class _BRouterListenerState extends State<BRouterListener> {
   late final Widget _child;
-  late BRouterState _previousState;
+  BRouterState? _previousState;
 
   @override
   void initState() {
@@ -47,10 +47,9 @@ class _BRouterListenerState extends State<BRouterListener> {
   @override
   void didChangeDependencies() {
     final state = BRouteStateProvider.of(context).state;
-    final shouldListen = widget.listenWhen?.call(_previousState, state) ?? true;
-    if (state == _previousState || !shouldListen) return;
+    final listenWhen = widget.listenWhen?.call(_previousState ?? state, state) ?? true;
+    if ((_previousState != state) && listenWhen) widget.listener(context, state);
     _previousState = state;
-    widget.listener(context, state);
     super.didChangeDependencies();
   }
 
