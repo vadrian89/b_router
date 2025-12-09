@@ -20,10 +20,11 @@ sealed class BRouterState extends Equatable {
   /// Define the private constructor to enable support for class methods and properties.
   const BRouterState();
 
-  /// [BRouterState.initial] is the initial state of the app.
+  /// The initial state of the router.
   ///
-  /// This should be used to show the user a loading screen/widget, until the app verifies
-  /// if the user is authenticated or not.
+  /// Used when the app is first started.
+  ///
+  /// Should be replaced immediately with [BRouterState.routesFound], by [BRouterParser].
   const factory BRouterState.initial() = InitialRoute;
 
   /// [BRouterState.routesFound] contains all the routes found.
