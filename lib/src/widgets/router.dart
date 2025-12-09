@@ -2,6 +2,7 @@ import 'package:b_router/application.dart';
 import 'package:b_router/router.dart';
 import 'package:b_router/src/router/route_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 import '../utils/route_logger.dart';
 
@@ -55,6 +56,7 @@ class _BRouterState extends State<BRouter> {
   @override
   void initState() {
     super.initState();
+    usePathUrlStrategy();
     _routes = widget.routes;
     _stateNotifier = BRouterStateNotifier(
       onStateChanged: (previous, current) => _logger.d(
