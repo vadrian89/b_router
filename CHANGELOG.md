@@ -25,7 +25,7 @@
 * Removed BRouterDelegate.errorBuilder callback
 * Removed BRouterDelegate.redirect callback
 * Replaced bloc with BRouterStateNotifier, in BRouterDelegate
-* Updated BRouterDelegate to listen for state changes and pass the it to the widget tree using BRouteStateProvider
+* Updated BRouterDelegate to listen for state changes and pass it to the widget tree using BRouteStateProvider
 * Updated BRouterListener to listen for changes using BRouteStateProvider
 * Removed dependencies on bloc and flutter_bloc
 
