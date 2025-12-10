@@ -1,7 +1,7 @@
+import 'package:b_router/application.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/b_router_cubit.dart';
+import 'listener.dart';
 
 /// Use this widget to listen when you need to get the result from a screen/dialog which has a
 /// return value.
@@ -27,7 +27,7 @@ class PopResultListener extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => BlocListener<BRouterCubit, BRouterState>(
+  Widget build(BuildContext context) => BRouterListener(
         listener: (context, state) => switch (state) {
           PoppedResultRoute(:final popResult) => onResultChanged(popResult),
           _ => null,

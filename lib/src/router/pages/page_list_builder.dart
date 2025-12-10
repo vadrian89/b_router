@@ -11,12 +11,6 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
   /// The current state of the router.
   final BRouterState currentState;
 
-  /// {@macro RedirectPathBuilder}
-  final RedirectPathBuilder? redirect;
-
-  /// The error page builder.
-  final WidgetBuilder? errorChildBuilder;
-
   /// {@macro PageBuilder}
   final PageBuilder? pageBuilder;
 
@@ -29,57 +23,27 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
     required this.context,
     required this.currentState,
     this.pageBuilder,
-    this.redirect,
-    this.errorChildBuilder,
     required this.onPopInvoked,
   });
 
   @override
-  List<Page> build() {
-    var list = const <Page>[];
-    if (currentState case UnknownRoute()) {
-      list = [DefaultPageBuilder.notFound(builder: errorChildBuilder).build()];
-    } else if (currentState case FoundRoutes(:final routes)) {
-      final redirectedPath = redirect?.call(context, currentState)?.trim() ?? "";
-      if (redirectedPath.isNotEmpty) list = _redirectedBuilder(routes, redirectedPath);
-      list = _foundPages(routes);
-    }
-    return list;
-  }
+  List<Page> build() => switch (currentState) {
+        FoundRoutes(:final routes) => _foundPages(routes),
+        _ => const [],
+      };
 
   List<Page> _foundPages(List<BRoute> routes) => List.generate(
         routes.length,
         (index) {
           final route = routes[index];
-          var page = pageBuilder?.call(context, route);
+          final uri = currentState.uri;
+          var page = pageBuilder?.call(context, route, uri);
           page ??= DefaultPageBuilder(
             name: route.name,
             onPopInvoked: (didPop, result) => didPop ? onPopInvoked(route, result) : null,
-            builder: (context) => route.builder(
-              context,
-              route.arguments,
-              currentState.uri,
-            ),
+            builder: (context) => route.builder(context, route.arguments, uri),
           ).build();
           return page;
         },
       );
-
-  List<Page> _redirectedBuilder(List<BRoute> routes, String redirectedPath) {
-    final route = routes.firstWhere(
-      (element) => element.path == redirectedPath,
-      orElse: () => routes.first,
-    );
-    var page = pageBuilder?.call(context, route);
-    page ??= DefaultPageBuilder(
-      name: route.name,
-      onPopInvoked: (didPop, result) => didPop ? onPopInvoked(route, result) : null,
-      builder: (context) => routes.first.builder(
-        context,
-        route.arguments,
-        currentState.uri,
-      ),
-    ).build();
-    return [page];
-  }
 }

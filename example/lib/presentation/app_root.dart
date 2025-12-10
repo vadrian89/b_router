@@ -3,6 +3,7 @@ import 'package:example/presentation/main_screen.dart';
 import 'package:example/presentation/second_screen.dart';
 import 'package:b_router/b_router.dart';
 import 'package:example/presentation/simple_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'redirected_screen.dart';
@@ -16,37 +17,26 @@ class AppRoot extends StatefulWidget {
 }
 
 class _AppRootState extends State<AppRoot> {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  late final BRouterCubit _bloc;
-
   @override
-  void initState() {
-    super.initState();
-    _bloc = BRouterCubit(routes: _routes);
-  }
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => BRouterProvider(
-        bloc: _bloc,
-        child: Builder(
-          builder: (context) => MaterialApp.router(
-            theme: ThemeData.from(
-              colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blue,
-              ).copyWith(secondary: Colors.yellow),
-            ),
-            routerDelegate: BRouterDelegate(
-              navigatorKey: _navigatorKey,
-              bloc: _bloc,
-            ),
-            routeInformationParser: BRouterParser(routes: _routes),
+  Widget build(BuildContext context) => BRouter(
+        routes: _routes,
+        pageBuilder: (context, route, uri) => MaterialPage(
+          key: ValueKey<String>("${route.name}_page"),
+          name: route.name,
+          onPopInvoked: (didPop, result) {
+            if (kDebugMode) print("Page ${route.name} popped with result $result");
+            PopRouteEvent(route: route, result: result).dispatch(context);
+          },
+          child: route.builder(context, route.arguments, uri),
+        ),
+        builder: (context, config) => MaterialApp.router(
+          theme: ThemeData.from(
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blue,
+            ).copyWith(secondary: Colors.yellow),
           ),
+          routeInformationParser: config.routeInformationParser,
+          routerDelegate: config.routerDelegate,
         ),
       );
 
