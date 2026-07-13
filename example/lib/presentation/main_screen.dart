@@ -12,12 +12,6 @@ class MainScreen extends StatelessWidget {
         listener: (context, state) {
           if (kDebugMode) print("New router state: $state");
         },
-        listenWhen: (previous, current) {
-          return switch (current) {
-            FoundRoutes(:final routes) => routes.last.path == "page2",
-            _ => false,
-          };
-        },
         child: Scaffold(
           body: Center(
             child: Wrap(
