@@ -1,5 +1,6 @@
 import 'package:b_router/b_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import '../utils/route_logger.dart';
@@ -149,21 +150,37 @@ class _BRouterState extends State<BRouter> {
   void _pop(BRoute route, [Object? result]) {
     _logger.d("Popping route: $route with result: $result");
     final currentRoutes = switch (_currentState) {
-      FoundRoutes(:final routes) => List.from(routes),
-      _ => const [],
+      FoundRoutes(:final routes) => routes,
+      _ => const <BRoute>[],
     };
     if (currentRoutes.isEmpty) {
       _logger.w("No routes to pop.");
       return;
     }
     final pushedRoutes = currentRoutes.where((element) => element != route).toList();
-    if (result != null) {
-      _stateNotifier.value = BRouterState.poppedResult(
-        route: route,
-        uri: _currentState.uri,
-        popResult: result,
-      );
+
+    if (result == null) {
+      _emitFound(pushedRoutes);
+      return;
     }
-    _stateNotifier.value = BRouterState.routesFound(routes: List.from(pushedRoutes));
+
+    // Emit the popped result first and let a full frame build/consume it via
+    // BRouterListener before switching the notifier back to FoundRoutes.
+    // Writing both values synchronously clobbers PoppedResultRoute before any
+    // widget observes it, since ValueListenableBuilder only schedules a
+    // rebuild rather than rebuilding immediately.
+    _stateNotifier.value = BRouterState.poppedResult(
+      route: route,
+      uri: _currentState.uri,
+      routes: pushedRoutes,
+      popResult: result,
+    );
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _emitFound(pushedRoutes);
+    });
   }
+
+  void _emitFound(List<BRoute> routes) =>
+      _stateNotifier.value = BRouterState.routesFound(routes: List.from(routes));
 }
