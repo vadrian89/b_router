@@ -61,15 +61,8 @@ class _BRouterListenerState extends State<BRouterListener> {
 
   void _valueChanged() {
     final newState = _stateNotifier!.value;
-    print("BRouterListener: newState: $newState");
-    final previousState = _previousState ?? newState;
-    print("BRouterListener: previousState: $previousState");
-    final listenWhen = widget.listenWhen?.call(previousState, newState) ?? true;
-    print("BRouterListener: listenWhen: $listenWhen");
-    if ((_previousState != newState) && listenWhen) {
-      print("BRouterListener: calling listener with newState: $newState");
-      widget.listener(context, newState);
-    }
+    final listenWhen = widget.listenWhen?.call(_previousState ?? newState, newState) ?? true;
+    if ((_previousState != newState) && listenWhen) widget.listener(context, newState);
     _previousState = newState;
   }
 }
