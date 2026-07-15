@@ -3,12 +3,17 @@ import 'package:flutter/widgets.dart';
 
 /// An inherited widget that provides access to the [BRouterState] through the build context.
 class BRouterStateProvider extends InheritedWidget {
-  /// The current state of the BRouter.
-  final BRouterState state;
+  /// The current notifier that holds the [BRouterState].
+  final BRouterStateNotifier stateNotifier;
+
+  /// The current [BRouterState] provided by this widget.
+  ///
+  /// This is a shorthand for `stateNotifier.value` and provides direct access to the current state.
+  BRouterState get state => stateNotifier.value;
 
   const BRouterStateProvider({
     super.key,
-    required this.state,
+    required this.stateNotifier,
     required super.child,
   });
 
@@ -26,5 +31,6 @@ class BRouterStateProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(BRouterStateProvider oldWidget) => oldWidget.state != state;
+  bool updateShouldNotify(BRouterStateProvider oldWidget) =>
+      oldWidget.stateNotifier != stateNotifier;
 }
