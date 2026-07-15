@@ -1,3 +1,11 @@
+## 0.0.11
+* Updated iOS specific files to ensure it builds with Flutter 3.32
+* Updated MainScreen from example to listen for all router changes
+* Updated PoppedResultRoute state to contain all the current routes
+* Updated BRouter to use addPostFrameCallback when pushing the routes after a page pop with result
+* BRouterStateProvider will use the current state notifier instance to rebuild the widget tree
+* BRouterListener will now listen to BRouterStateNotifier instead of widget rebuild; This change is to ensure the states are correctly emitted
+
 ## 0.0.10
 * Renamed BRouteStateProvider to BRouterStateProvider
 * Added BRouterContextExtensions.routerStateProvider getter
