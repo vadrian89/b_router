@@ -1,6 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:b_router/application.dart';
+import 'package:b_router/src/widgets/not_found_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
+typedef RouteBuilderCallback = Widget Function(
+  BuildContext context,
+  Map<String, dynamic>? arguments,
+  Uri uri,
+);
 
 /// Route class which is used for route configuration.
 class BRoute extends Equatable {
@@ -47,7 +55,7 @@ class BRoute extends Equatable {
   final List<String> allowedParams;
 
   /// Build the widget which will be used inside the [Page].
-  final Widget Function(BuildContext context, Map<String, dynamic>? arguments, Uri uri) builder;
+  final RouteBuilderCallback builder;
 
   /// The name part of the [path].
   ///
@@ -80,6 +88,21 @@ class BRoute extends Equatable {
     this.allowedParams = const <String>[],
     required this.builder,
   });
+
+  /// Factory constructor for routes which are not found.
+  ///
+  /// The [builder] is required to build page displaying information about the not found route.
+  factory BRoute.notfound({
+    RouteBuilderCallback? builder,
+    Map<String, dynamic>? arguments,
+    Map<String, String>? params,
+  }) =>
+      BRoute(
+        path: BRouterState.notFoundPath,
+        builder: (context, arguments, uri) => const NotFoundScreen(),
+        arguments: arguments ?? const {},
+        params: params ?? const {},
+      );
 
   /// Get the route, from [routes], using [name], if exists.
   static BRoute? fromPath(String path, List<BRoute> routes) {

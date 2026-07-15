@@ -1,7 +1,7 @@
+import 'package:b_router/application.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../bloc/b_router_cubit.dart';
 import 'route.dart';
 
 /// The [RouteInformationParser] implementation for our [MaterialApp.router]
@@ -14,14 +14,8 @@ class BRouterParser extends RouteInformationParser<BRouterState> {
 
   /// Parse the incoming [Uri] string and based on [Uri.pathSegments] length return the correct [BRouterState].
   @override
-  Future<BRouterState> parseRouteInformation(RouteInformation routeInformation) {
-    final uri = routeInformation.uri;
-    BRouterState state = const BRouterState.initial();
-    if (uri.pathSegments.isNotEmpty) {
-      state = BRouterState.fromUri(uri: uri, routes: routes);
-    }
-    return SynchronousFuture(state);
-  }
+  Future<BRouterState> parseRouteInformation(RouteInformation routeInformation) =>
+      SynchronousFuture(BRouterState.fromUri(uri: routeInformation.uri, routes: routes));
 
   /// Restore the route information from the given configuration (or state, in our case).
   ///

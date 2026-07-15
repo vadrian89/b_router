@@ -15,19 +15,8 @@ import 'pages/page_list_builder.dart';
 /// as mixin and call [notifyListeners] whenever [BRouterCubit] emits a new state.
 class BRouterDelegate extends RouterDelegate<BRouterState>
     with PopNavigatorRouterDelegateMixin<BRouterState>, ChangeNotifier {
-  final GlobalKey<NavigatorState> _navigatorKey;
-  final BRouterCubit _bloc;
-
-  /// {@macro StayOpenedCallback}
-  final StayOpenedCallback? stayOpened;
-
-  /// Build the widget used when navigation errors occur.
-  ///
-  /// By default it will use [NotFoundScreen].
-  final WidgetBuilder? errorBuilder;
-
-  /// {@macro RedirectPathBuilder}
-  final RedirectPathBuilder? redirect;
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  final BRouterStateNotifier stateNotifier;
 
   /// {@macro PageBuilder}
   final PageBuilder? pageBuilder;
@@ -35,39 +24,75 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// Callback used for [Navigator.onDidRemovePage].
   final DidRemovePageCallback? onDidRemovePage;
 
+  /// Callback when a page is popped.
+  ///
+  /// Passed to [MaterialPage.onPopInvoked].
+  final RoutePopInvokedCallback<Object?> onPopInvoked;
+
   @override
   GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
-  NavigatorState? get _navigatorState => navigatorKey!.currentState;
+
+  /// NavigatorState? get _navigatorState => navigatorKey!.currentState;
   @override
-  BRouterState get currentConfiguration => _bloc.state;
+  BRouterState get currentConfiguration => stateNotifier.value;
 
   BRouterDelegate({
-    required GlobalKey<NavigatorState> navigatorKey,
-    required BRouterCubit bloc,
-    this.stayOpened,
-    this.errorBuilder,
-    this.redirect,
+    required this.stateNotifier,
     this.pageBuilder,
     this.onDidRemovePage,
-  })  : _navigatorKey = navigatorKey,
-        _bloc = bloc;
+    required this.onPopInvoked,
+  }) {
+    stateNotifier.addListener(notifyListeners);
+  }
 
   @override
-  Widget build(BuildContext context) => BRouterListener(
-        listener: (context, state) => notifyListeners(),
+  void dispose() {
+    stateNotifier.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: stateNotifier,
+        builder: (context, value, child) => BRouterStateProvider(
+          stateNotifier: stateNotifier,
+          child: child!,
+        ),
         child: Navigator(
           key: navigatorKey,
           pages: PageListBuilder(
             context: context,
             currentState: currentConfiguration,
-            redirect: redirect,
-            errorChildBuilder: errorBuilder,
             pageBuilder: pageBuilder,
-            onPopInvoked: (route, result) => _bloc.pop(route: route, result: result),
+            onPopInvoked: onPopInvoked,
           ).build(),
           onDidRemovePage: onDidRemovePage ?? (page) {},
         ),
       );
+
+  /// Implement the logic for what happens when the top route was popped.
+  ///
+  /// If the current state is [BRouterState.unknown], it will call [goToRoot]. This is to prevent
+  /// any issues that might arise from popping a route when the state is unknown.
+  /// void pop({required BRoute route, Object? result}) {
+  ///   _logger.d("Popping route.");
+  ///   final currentState = this.pushedRoutes.value;
+  ///   if (currentState case UnknownRoute()) {
+  ///     this.pushedRoutes.value = BRouterState.initial();
+  ///     return;
+  ///   }
+  ///   final pushedRoutes = _pushedRoutes.where((element) => element != route).toList();
+  ///   if (pushedRoutes.isEmpty) {
+  ///     _logger.w("Cannot pop the root route.");
+  ///     return goToRoot();
+  ///   }
+  ///   _pushedRoutes = List.from(pushedRoutes);
+  ///   if (result != null) {
+  ///     _logger.d("Popping route with result: $result");
+  ///     emit(BRouterState.poppedResult(route: route, uri: currentState.uri, popResult: result));
+  ///   }
+  ///   _showFound();
+  /// }
 
   /// Set a new path based on the one reported by the system, by calling [BRouterCubit.setNewRoutePath].
   ///
@@ -77,49 +102,8 @@ class BRouterDelegate extends RouterDelegate<BRouterState>
   /// This happens right after the RouteInformation has been parsed by the [Router].
   /// For example: when a URL has been manually inserted, the URL get’s parsed, then this mehod is called.
   @override
-  Future<void> setNewRoutePath(BRouterState configuration) => SynchronousFuture(
-        _bloc.setNewRoutePath(configuration),
-      );
-
-  /// Called by the [Router] when the [Router.backButtonDispatcher] reports that
-  /// the operating system is requesting that the current route be popped.
-  ///
-  /// Closing the app can be prevented with the help of [stayOpened].
-  /// Exit confirmation example:
-  /// ```dart
-  /// showDialog<bool?>(
-  ///   context: context!,
-  ///   builder: (context) => AlertDialog(
-  ///     content: const Text("Close app?"),
-  ///       actions: [
-  ///         TextButton(
-  ///           onPressed: () => Navigator.pop(context, true),
-  ///           child: const Text("No"),
-  ///         ),
-  ///         TextButton(
-  ///           onPressed: () => Navigator.pop(context, false),
-  ///           child: const Text("Yes"),
-  ///         ),
-  ///     ],
-  ///   ),
-  /// )
-  /// ```
-  /// If [stayOpened] is set and returns `null`, it will be replaced with a `true` value.
-  /// `false`, means the entire app will be popped, that's why a `true` value will keep the app
-  /// opened. For more info see [RouterDelegate.popRoute].
-  ///
-  /// TODO; Fix app closing. Because this way no longer prevents app from closing.
-  /// Look into [PopScope] for possible solution.
-  ///
-  /// [Page.canPop] needs to be set false for the root page, in order to prevent the app
-  /// from closing.
-  @override
-  Future<bool> popRoute() async {
-    if (_navigatorState?.canPop() ?? false) {
-      return _navigatorState!.maybePop();
-    }
-    return (stayOpened != null)
-        ? (await stayOpened!(navigatorKey!.currentContext!) ?? true)
-        : false;
+  Future<void> setNewRoutePath(BRouterState configuration) {
+    stateNotifier.value = configuration;
+    return SynchronousFuture(null);
   }
 }

@@ -8,10 +8,9 @@ def properties = new Properties()
 file("../local.properties").withInputStream { properties.load(it) }
 def flutterVersionName = properties.getProperty("flutter.versionName")
 def flutterVersionCode = properties.getProperty("flutter.versionCode").toInteger()
-def flutterTargetSdk = properties.getProperty("flutter.flutterTargetSdkVersion").toInteger()
-def flutterMinSdk = properties.getProperty("flutter.flutterMinSdkVersion").toInteger()
+def flutterTargetSdk = 36
 android {
-    compileSdkVersion flutterTargetSdk.toInteger()
+    compileSdkVersion flutterTargetSdk
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -32,7 +31,7 @@ android {
         applicationId "com.example.example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutterMinSdk
+        minSdkVersion 29
         targetSdkVersion flutterTargetSdk
         versionCode flutterVersionCode
         versionName flutterVersionName

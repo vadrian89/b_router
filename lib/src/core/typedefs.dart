@@ -17,9 +17,15 @@ typedef RedirectPathBuilder = String? Function(BuildContext context, BRouterStat
 /// If set, it will be used to build the page instead of the default one.
 /// This is because the default page builder builds a [MaterialPage] with a standard key.
 ///
+/// It provides [context], the [route] to be built and the current [uri] of the router.
+///
 /// This method brings more flexibility to the developer.
 /// {@endtemplate}
-typedef PageBuilder = Page<Object?> Function(BuildContext context, BRoute route);
+typedef PageBuilder = Page<Object?> Function(
+  BuildContext context,
+  BRoute route,
+  Uri uri,
+);
 
 /// {@template StayOpenedCallback}
 /// If set, it will be called when the user presses the back button.
