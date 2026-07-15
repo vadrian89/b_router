@@ -44,10 +44,13 @@ sealed class BRouterState extends Equatable {
   ///
   /// [route] is the one which returned this result.
   /// [uri] is the current [Uri] when pop occured.
+  /// [routes] is the navigation stack after the pop, used to keep rendering
+  /// the correct pages while this transient state is observed.
   /// [popResult] is the result returned.
   const factory BRouterState.poppedResult({
     required BRoute route,
     required Uri uri,
+    required List<BRoute> routes,
     dynamic popResult,
   }) = PoppedResultRoute;
 
@@ -166,6 +169,12 @@ class PoppedResultRoute extends BRouterState {
   /// The route which was popped.
   final BRoute route;
 
+  /// The navigation stack after the pop.
+  ///
+  /// Used so pages can still be rendered correctly while this transient state
+  /// is being observed, before the router switches back to [FoundRoutes].
+  final List<BRoute> routes;
+
   final Uri _uri;
 
   /// The current uri when the pop occured.
@@ -179,7 +188,12 @@ class PoppedResultRoute extends BRouterState {
   final dynamic popResult;
 
   @override
-  List<Object?> get props => [route, uri, popResult];
+  List<Object?> get props => [route, routes, uri, popResult];
 
-  const PoppedResultRoute({required this.route, required Uri uri, this.popResult}) : _uri = uri;
+  const PoppedResultRoute({
+    required this.route,
+    required this.routes,
+    required Uri uri,
+    this.popResult,
+  }) : _uri = uri;
 }

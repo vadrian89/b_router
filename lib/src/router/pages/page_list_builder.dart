@@ -29,6 +29,10 @@ class PageListBuilder implements ObjectBuilder<List<Page>> {
   @override
   List<Page> build() => switch (currentState) {
         FoundRoutes(:final routes) => _foundPages(routes),
+        // PoppedResultRoute is a transient state that carries the post-pop
+        // navigation stack, so the Navigator's pages must not go empty while
+        // BRouterListener has a chance to observe the pop result.
+        PoppedResultRoute(:final routes) => _foundPages(routes),
         _ => const [],
       };
 
