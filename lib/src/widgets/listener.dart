@@ -57,9 +57,16 @@ class _BRouterListenerState extends State<BRouterListener> {
   }
 
   @override
+  void dispose() {
+    _stateNotifier?.removeListener(_valueChanged);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => _child;
 
   void _valueChanged() {
+    if (!mounted) return;
     final newState = _stateNotifier!.value;
     final listenWhen = widget.listenWhen?.call(_previousState ?? newState, newState) ?? true;
     if ((_previousState != newState) && listenWhen) widget.listener(context, newState);
