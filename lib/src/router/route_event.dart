@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 ///
 /// This class extends [Notification] to allow route events to be dispatched
 /// through the widget tree using the Flutter notification mechanism.
-sealed class RouteEvent extends Notification with EquatableMixin {
+sealed class RouteEvent extends Notification with Equatable {
   @override
   bool? get stringify => true;
 
