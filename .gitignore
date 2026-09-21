@@ -33,3 +33,4 @@ build/
 .fvm/
 example/android/app/.cxx
 example/android/.kotlin
+.vscode/settings.json
