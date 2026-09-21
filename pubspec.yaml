@@ -5,7 +5,7 @@ homepage: https://github.com/vadrian89/b_router
 
 environment:
   sdk: ">=3.0.6 <4.0.0"
-  flutter: ">=3.10.6"
+  flutter: ">=3.44.0"
 
 dependencies:
   collection: ^1.19.0
