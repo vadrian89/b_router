@@ -1,3 +1,11 @@
+## 0.0.12
+* Updated Flutter version to 3.44.9 and minimum Flutter requirement to 3.44.0
+* Changed named library declarations to unnamed library syntax
+* Updated equatable to ^3.0.0
+* Updated flutter_lints to ^6.0.0
+* Changed RouteEvent to use Equatable instead of EquatableMixin
+* Removed .vscode/settings.json and added it to .gitignore
+
 ## 0.0.11
 * Updated iOS specific files to ensure it builds with Flutter 3.32
 * Updated MainScreen from example to listen for all router changes
