@@ -1,4 +1,4 @@
-library b_router;
+library;
 
 export 'core.dart';
 export 'router.dart';

@@ -1,5 +1,5 @@
 /// Library which contains widgets which uses this package.
-library widgets;
+library;
 
 export 'src/widgets/listener.dart';
 export 'src/widgets/not_found_screen.dart';
